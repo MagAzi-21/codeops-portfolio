@@ -1,0 +1,5 @@
+Paracetamol,110
+Amoxicillin,-8
+Ciprofloxacin,4
+Metformin,8
+Ibuprofen,32
