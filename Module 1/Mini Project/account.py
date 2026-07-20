@@ -1,38 +1,48 @@
 # Addis Bank — Account Management System V1.0
- 
+
 class Account:
-    def __init__(self, owner, number, balance=0):
+    """A single bank account with encapsulated balance."""
+
+    def __init__(self, owner, account_number, balance=0):
         self.owner = owner
-        self.account_number = number
+        self.account_number = account_number
         self.__balance = balance
 
+    # balance property
     @property
     def balance(self):
         return self.__balance
 
+    # Deposit: reject non-positive amounts
     def deposit(self, amount):
         if amount <= 0:
-            raise ValueError("Deposit amount must be greater than zero.")
+            raise ValueError("Amount must be positive")
         self.__balance += amount
-        return self.__balance
 
+    # Withdraw: reject non-positive & overdrafts
     def withdraw(self, amount):
         if amount <= 0:
-            raise ValueError("Withdrawal amount must be greater than zero.")
+            raise ValueError("Amount must be positive")
         if amount > self.__balance:
-            raise ValueError("Insufficient funds for this withdrawal.")
+            raise ValueError("Insufficient funds")
         self.__balance -= amount
-        return self.__balance
 
+    # Statement
     def statement(self):
-        print(f"Account Owner: {self.owner}")
-        print(f"Account Number: {self.account_number}")
-        print(f"Current Balance: {self.__balance:.2f} ETB")
+        print(f"Owner: {self.owner}")
+        print(f"Account #: {self.account_number}")
+        print(f"Balance: {self.__balance} ETB")
 
 
 if __name__ == "__main__":
-    # For test run
-    acc = Account("Abebe Bikila", "ETB-100234", 500)
-    acc.deposit(250)
-    acc.withdraw(100)
-    acc.statement()
+    acc1 = Account("Almaz Bekele", "ACC-1001", 1500)
+    acc2 = Account("Dawit Tesfaye", "ACC-1002")
+
+    acc1.deposit(500)
+    acc1.withdraw(300)
+    acc1.statement()
+
+    print("------")
+
+    acc2.deposit(1000)
+    acc2.statement()
