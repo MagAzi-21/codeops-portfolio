@@ -32,7 +32,7 @@ def bubble_sort(arr):
         print(f"Pass {i + 1}: {a}")
         if not swapped:
             break
-    return a
+    return a   
 
 if __name__ == "__main__":
     print("4, Binary Search")

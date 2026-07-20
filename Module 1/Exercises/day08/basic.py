@@ -31,7 +31,7 @@ def linear_search(arr, target):
         if value == target:
             return index
     return -1
-
+   
 
 if __name__ == "__main__":
     print("1. Factorial")

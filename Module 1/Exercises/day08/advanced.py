@@ -83,7 +83,7 @@ if __name__ == "__main__":
     sample_list = [1, 2, 3, 2, 4, 2, 5]
     print("Count 2s in [1, 2, 3, 2, 4, 2, 5]:", count_occurrences(sample_list, 2))
 
-    print("\n7, Sorting Comparison")
+    print("\n7, Sorting Comparison")  
     test_list = [29, 10, 14, 37, 13]
     sel_sorted, sel_comp, sel_swaps = selection_sort_instrumented(test_list)
     ins_sorted, ins_comp, ins_swaps = insertion_sort_instrumented(test_list)
