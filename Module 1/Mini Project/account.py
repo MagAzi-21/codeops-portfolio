@@ -1,21 +1,128 @@
 # =====================================================================
-#        ADDIS BANK ACCOUNT SYSTEM Version 4.0 (Day 7 SOLID + DSA Integration)
+#         ADDIS BANK ACCOUNT SYSTEM Version 5.0 (Day 9 DSA III)
+#         Trees (Hierarchy), Graphs (Network), Heaps (Priority)
 # =====================================================================
 
 from abc import ABC, abstractmethod
 from datetime import datetime
+import heapq
 import random
 from typing import Dict, List, Optional
+from collections import deque, defaultdict
 
 
+# ---------------------------------------------------------------------
+# DAY 9 DATA STRUCTURES: TREE, GRAPH, HEAP
+# ---------------------------------------------------------------------
 
-# Data Structure: Transaction Model & Analytics
+# 1. Tree: Organizational & Branch Hierarchy
+class HierarchyNode:
+    """Represents a node in the Bank Branch / Employee Hierarchy Tree."""
+    def __init__(self, name: str, role: str):
+        self.name = name
+        self.role = role  # e.g., 'Head Office', 'Branch', 'Teller', 'Loan Officer'
+        self.children: List['HierarchyNode'] = []
+
+    def add_child(self, child_node: 'HierarchyNode'):
+        self.children.append(child_node)
+
+    def print_tree(self, level: int = 0):
+        indent = "   " * level
+        print(f"{indent}└── [{self.role}] {self.name}")
+        for child in self.children:
+            child.print_tree(level + 1)
+
+
+# 2. Graph: Customer Money Transfer Network
+class TransferNetworkGraph:
+    """Adjacency List representation of money transfers between accounts."""
+    def __init__(self):
+        self.adj_list = defaultdict(list)
+
+    def add_transfer_edge(self, sender_acc: str, receiver_acc: str, amount: float):
+        self.adj_list[sender_acc].append((receiver_acc, amount))
+        if receiver_acc not in self.adj_list:
+            self.adj_list[receiver_acc] = []
+
+    def print_network(self):
+        print("\n--- MONEY TRANSFER NETWORK GRAPH ---")
+        if not self.adj_list:
+            print("No transfers recorded yet.")
+            return
+        for account, transfers in self.adj_list.items():
+            connections = ", ".join([f"{to} ({amt} ETB)" for to, amt in transfers])
+            print(f" Account #{account} ➔ [{connections if connections else 'No Outgoing Transfers'}]")
+
+    def bfs_traversal(self, start_acc: str) -> List[str]:
+        """Breadth-First Search to find all reachable accounts in network."""
+        if start_acc not in self.adj_list:
+            return []
+        visited = set()
+        queue = deque([start_acc])
+        visited.add(start_acc)
+        traversal_order = []
+
+        while queue:
+            curr = queue.popleft()
+            traversal_order.append(curr)
+            for neighbor, _ in self.adj_list[curr]:
+                if neighbor not in visited:
+                    visited.add(neighbor)
+                    queue.append(neighbor)
+        return traversal_order
+
+    def dfs_traversal(self, start_acc: str, visited: set = None) -> List[str]:
+        """Depth-First Search to traverse customer network."""
+        if visited is None:
+            visited = set()
+        if start_acc not in self.adj_list or start_acc in visited:
+            return []
+        visited.add(start_acc)
+        traversal_order = [start_acc]
+
+        for neighbor, _ in self.adj_list[start_acc]:
+            if neighbor not in visited:
+                traversal_order.extend(self.dfs_traversal(neighbor, visited))
+        return traversal_order
+
+
+# 3. Priority Queue (Heap): Urgent Transactions & Alerts
+class PriorityAlertHeap:
+    """Max-Heap for managing urgent bank alerts and high-priority operations."""
+    def __init__(self):
+        self._heap = []
+        self._counter = 0
+    def add_alert(self, priority: int, account_num: str, description: str):
+        self._counter += 1
+        heapq.heappush(self._heap, (-priority, self._counter, account_num, description))
+
+    def process_highest_priority(self) -> Optional[tuple]:
+        if not self._heap:
+            return None
+        neg_prio, _, acc, desc = heapq.heappop(self._heap)
+        return (-neg_prio, acc, desc)
+
+    def display_pending(self):
+        print("\n--- PENDING PRIORITY ALERTS (HEAP) ---")
+        if not self._heap:
+            print("No pending alerts.")
+            return
+        # Display elements ordered by priority without destroying heap state
+        sorted_temp = sorted(self._heap)
+        for neg_prio, _, acc, desc in sorted_temp:
+            print(f" [Priority {-neg_prio}] Acc #{acc}: {desc}")
+
+
+# ---------------------------------------------------------------------
+# DAY 7 & 8 BASE CORE: TRANSACTION & ACCOUNT ABSTRACTIONS
+# ---------------------------------------------------------------------
+
 class Transaction:
     def __init__(self, transaction_id: str, amount: float, date_str: str, trans_type: str):
         self.transaction_id = transaction_id
         self.amount = float(amount)
         self.date = datetime.strptime(date_str, "%Y-%m-%d")
-        self.trans_type = trans_type.upper()  # 'DEPOSIT', 'WITHDRAWAL', 'INTEREST'
+        self.trans_type = trans_type.upper()
 
     @property
     def formatted_date(self) -> str:
@@ -25,7 +132,6 @@ class Transaction:
         return f"[{self.transaction_id}] {self.formatted_date} | {self.trans_type:<10} | {self.amount:>8.2f} ETB"
 
 
-# 1. Singleton Pattern, Bank Configuration
 class BankConfig:
     _instance = None
 
@@ -37,9 +143,6 @@ class BankConfig:
             cls._instance.large_transaction_threshold = 3000.0
         return cls._instance
 
-
-
-# 2. Observer Pattern: Notification System
 
 class Observer(ABC):
     @abstractmethod
@@ -57,8 +160,6 @@ class AuditLog(Observer):
         print(f"[AUDIT LOG - Acc #{account_number}]: {message}")
 
 
-# 3. Base Account Abstraction with DSA Extensions
-
 class Account(ABC):
     def __init__(self, number: str, owner: str, balance: float):
         self._number = number
@@ -66,8 +167,7 @@ class Account(ABC):
         self._balance = max(0.0, float(balance))
         self._observers: List[Observer] = []
         self.transactions: List[Transaction] = []
-        
-        # Log Initial Deposit
+
         if balance > 0:
             tx_id = f"TX{random.randint(10000, 99999)}"
             today = datetime.now().strftime("%Y-%m-%d")
@@ -97,12 +197,9 @@ class Account(ABC):
             print("\n[!] Deposit amount must be positive.")
             return False
         self._balance += amount
-        
-        # Track Transaction
         tx_id = f"TX{random.randint(10000, 99999)}"
         today = datetime.now().strftime("%Y-%m-%d")
         self.transactions.append(Transaction(tx_id, amount, today, "DEPOSIT"))
-
         print(f"\n[+] Deposited {amount} ETB. New Balance: {self._balance:.2f} ETB")
         return True
 
@@ -113,85 +210,20 @@ class Account(ABC):
         if amount > self._balance:
             print(f"\n[!] Insufficient funds! Current balance: {self._balance:.2f} ETB")
             return False
-
         self._balance -= amount
-
-        # Track Transaction
         tx_id = f"TX{random.randint(10000, 99999)}"
         today = datetime.now().strftime("%Y-%m-%d")
         self.transactions.append(Transaction(tx_id, amount, today, "WITHDRAWAL"))
-
         print(f"\n[-] Withdrew {amount} ETB. Remaining Balance: {self._balance:.2f} ETB")
 
         if amount >= BankConfig().large_transaction_threshold:
             self.notify_all(f"Large withdrawal of {amount} ETB processed.")
         return True
 
-    # Day 7 DSA Functions Integrated
-    
-    # Recursion, Balance Calculation from History
-    def calculate_balance_recursive(self, index: int = 0) -> float:
-        if index >= len(self.transactions):
-            return 0.0
-        tx = self.transactions[index]
-        val = tx.amount if tx.trans_type in ["DEPOSIT", "INTEREST"] else -tx.amount
-        return val + self.calculate_balance_recursive(index + 1)
-
-    def sort_transactions_by_amount(self):
-        n = len(self.transactions)
-        for i in range(n):
-            min_idx = i
-            for j in range(i + 1, n):
-                if self.transactions[j].amount < self.transactions[min_idx].amount:
-                    min_idx = j
-            self.transactions[i], self.transactions[min_idx] = self.transactions[min_idx], self.transactions[i]
-
-    def sort_transactions_by_date(self):
-        for i in range(1, len(self.transactions)):
-            key_tx = self.transactions[i]
-            j = i - 1
-            while j >= 0 and self.transactions[j].date > key_tx.date:
-                self.transactions[j + 1] = self.transactions[j]
-                j -= 1
-            self.transactions[j + 1] = key_tx
-
-
-    def linear_search_tx(self, tx_id: str) -> Optional[Transaction]:
-        for tx in self.transactions:
-            if tx.transaction_id.lower() == tx_id.lower():
-                return tx
-        return None
-
-
-    def binary_search_tx(self, amount: float) -> Optional[Transaction]:
-        self.sort_transactions_by_amount()
-        left, right = 0, len(self.transactions) - 1
-        while left <= right:
-            mid = (left + right) // 2
-            if self.transactions[mid].amount == amount:
-                return self.transactions[mid]
-            elif self.transactions[mid].amount < amount:
-                left = mid + 1
-            else:
-                right = mid - 1
-        return None
-
-    # Recursion: Report Generation
-    def filter_large_tx_recursive(self, threshold: float, index: int = 0) -> List[Transaction]:
-        if index >= len(self.transactions):
-            return []
-        current_tx = self.transactions[index]
-        rest = self.filter_large_tx_recursive(threshold, index + 1)
-        if current_tx.amount >= threshold:
-            return [current_tx] + rest
-        return rest
-
     @abstractmethod
     def statement(self):
         pass
 
-
-# 4. Interface Segregation: Interest System
 
 class InterestBearing(ABC):
     @abstractmethod
@@ -199,19 +231,14 @@ class InterestBearing(ABC):
         pass
 
 
-
-# 5. Concrete Account Types
-
 class SavingsAccount(Account, InterestBearing):
     def apply_interest(self):
         rate = BankConfig().savings_interest_rate
         interest = self._balance * rate
         self._balance += interest
-
         tx_id = f"TX{random.randint(10000, 99999)}"
         today = datetime.now().strftime("%Y-%m-%d")
         self.transactions.append(Transaction(tx_id, interest, today, "INTEREST"))
-
         print(f"[{self._number}] Applied {rate*100}% interest (+{interest:.2f} ETB). New Balance: {self._balance:.2f} ETB")
 
     def statement(self):
@@ -226,18 +253,14 @@ class CurrentAccount(Account):
         if amount <= 0:
             print("\n[!] Withdrawal amount must be positive.")
             return False
-
         limit = BankConfig().overdraft_limit
         if amount > (self._balance + limit):
             print(f"\n[!] Overdraft limit exceeded! Max allowed: {self._balance + limit:.2f} ETB")
             return False
-
         self._balance -= amount
-
         tx_id = f"TX{random.randint(10000, 99999)}"
         today = datetime.now().strftime("%Y-%m-%d")
         self.transactions.append(Transaction(tx_id, amount, today, "WITHDRAWAL"))
-
         print(f"\n[-] Withdrew {amount} ETB. Current Balance: {self._balance:.2f} ETB")
 
         if amount >= BankConfig().large_transaction_threshold:
@@ -260,10 +283,6 @@ class FixedDepositAccount(SavingsAccount):
         print(f" Current Balance: {self._balance:.2f} ETB")
 
 
-# =====================================================================
-# 6. Factory Pattern: Account Factory
-# =====================================================================
-
 class AccountFactory:
     @staticmethod
     def create_account(kind: str, number: str, owner: str, initial_deposit: float) -> Account:
@@ -285,33 +304,38 @@ class AccountFactory:
         return acc
 
 
-# =====================================================================
-# CLI Engine
-# =====================================================================
+# ---------------------------------------------------------------------
+# CLI & SYSTEM INTEGRATION
+# ---------------------------------------------------------------------
+
+def build_default_hierarchy() -> HierarchyNode:
+    root = HierarchyNode("Head Office", "HQ")
+    bole = HierarchyNode("Bole Branch", "Branch")
+    piassa = HierarchyNode("Piassa Branch", "Branch")
+
+    bole.add_child(HierarchyNode("Abebe Bikila", "Teller"))
+    bole.add_child(HierarchyNode("Tigist Assefa", "Loan Officer"))
+    piassa.add_child(HierarchyNode("Dawit Kebede", "Teller"))
+
+    root.add_child(bole)
+    root.add_child(piassa)
+    return root
+
 
 def display_menu():
-    print("      ADDIS BANK SYSTEM (v4.0 - SOLID + DSA)   ")
-    print("1. Create Savings Account")
-    print("2. Create Current Account")
-    print("3. Create Fixed Deposit Account")
-    print("4. Deposit")
-    print("5. Withdraw")
-    print("6. Show Statement")
-    print("7. Apply Interest to All Applicable Accounts")
-    print("8. Display All Accounts")
-    print("9. Transaction Analyzer Submenu (DSA)")
-    print("10. Exit")
-
-
-def display_dsa_menu():
-    print("\n--- TRANSACTION ANALYZER SUBMENU ---")
-    print("a. Calculate Net Balance Recursively")
-    print("b. Sort Transactions by Amount (Selection Sort)")
-    print("c. Sort Transactions by Date (Insertion Sort)")
-    print("d. Search Transaction by ID (Linear Search)")
-    print("e. Search Transaction by Amount (Binary Search)")
-    print("f. Generate High-Value Report (Recursive)")
-    print("g. Back to Main Menu")
+    print("\n=======================================================")
+    print("      ADDIS BANK SYSTEM (v5.0 - Trees, Graphs, Heaps)")
+    print("=======================================================")
+    print("1. Create New Bank Account")
+    print("2. Deposit / Withdraw Funds")
+    print("3. Add New Branch or Employee Node (Tree)")
+    print("4. View Bank Organization Hierarchy (Tree)")
+    print("5. Record Money Transfer (Graph)")
+    print("6. Show Customer Transfer Connections (Graph BFS/DFS)")
+    print("7. Add Urgent Transaction / Security Alert (Heap)")
+    print("8. Process Highest Priority Alert (Heap)")
+    print("9. Display All Priority Alerts (Heap)")
+    print("10. Exit System")
 
 
 def generate_account_number(existing_accounts):
@@ -323,146 +347,131 @@ def generate_account_number(existing_accounts):
 
 def main():
     accounts: Dict[str, Account] = {}
+    hierarchy_root = build_default_hierarchy()
+    transfer_graph = TransferNetworkGraph()
+    priority_heap = PriorityAlertHeap()
 
     while True:
         display_menu()
         choice = input("Select an option (1-10): ").strip()
 
-        if choice in ["1", "2", "3"]:
+        if choice == "1":
+            print("\nAccount Types: 1. Savings | 2. Current | 3. Fixed Deposit")
+            kind_choice = input("Select Type (1-3): ").strip()
             kind_map = {"1": "savings", "2": "current", "3": "fixed"}
-            name = input("Enter holder name: ").strip()
+            if kind_choice not in kind_map:
+                print("[!] Invalid type selected.")
+                continue
+
+            name = input("Enter Holder Name: ").strip()
             if not name:
-                print("[!] Name cannot be empty.\n")
+                print("[!] Name cannot be empty.")
                 continue
             try:
-                deposit_amt = float(input("Enter initial deposit (ETB): "))
+                deposit_amt = float(input("Enter Initial Deposit (ETB): "))
                 acc_num = generate_account_number(accounts)
-                acc = AccountFactory.create_account(kind_map[choice], acc_num, name, deposit_amt)
+                acc = AccountFactory.create_account(kind_map[kind_choice], acc_num, name, deposit_amt)
                 accounts[acc_num] = acc
-                print(f"[✓] {kind_map[choice].capitalize()} Account Created! Account Number: {acc_num}\n")
+                print(f"[✓] Created {kind_map[kind_choice].capitalize()} Account! Acc Num: {acc_num}")
             except ValueError as e:
-                print(f"[!] Error: {e}\n")
+                print(f"[!] Error: {e}")
+
+        elif choice == "2":
+            acc_num = input("Enter Account Number: ").strip()
+            if acc_num not in accounts:
+                print("[!] Account not found.")
+                continue
+            action = input("Type 'd' for Deposit, 'w' for Withdraw: ").strip().lower()
+            try:
+                amt = float(input("Enter Amount (ETB): "))
+                if action == "d":
+                    accounts[acc_num].deposit(amt)
+                elif action == "w":
+                    success = accounts[acc_num].withdraw(amt)
+                    if amt >= BankConfig().large_transaction_threshold and success:
+                        priority_heap.add_alert(5, acc_num, f"Large Withdrawal Alert: {amt:.2f} ETB")
+                else:
+                    print("[!] Invalid action.")
+            except ValueError:
+                print("[!] Invalid numerical value.")
+
+        elif choice == "3":
+            print("\n--- Add Branch / Staff Member ---")
+            parent_name = input("Enter Parent Node Name (e.g., 'Head Office', 'Bole Branch'): ").strip()
+            node_name = input("Enter New Node Name: ").strip()
+            role = input("Enter Role (e.g., 'Branch', 'Teller', 'Loan Officer'): ").strip()
+
+            def find_and_add(curr: HierarchyNode, target: str, new_node: HierarchyNode) -> bool:
+                if curr.name.lower() == target.lower():
+                    curr.add_child(new_node)
+                    return True
+                for child in curr.children:
+                    if find_and_add(child, target, new_node):
+                        return True
+                return False
+
+            added = find_and_add(hierarchy_root, parent_name, HierarchyNode(node_name, role))
+            if added:
+                print(f"[✓] Added [{role}] {node_name} under {parent_name}.")
+            else:
+                print(f"[!] Target parent node '{parent_name}' not found.")
 
         elif choice == "4":
-            acc_num = input("Enter Account Number: ").strip()
-            if acc_num in accounts:
-                try:
-                    amt = float(input("Enter deposit amount (ETB): "))
-                    accounts[acc_num].deposit(amt)
-                    print()
-                except ValueError:
-                    print("[!] Invalid amount.\n")
-            else:
-                print("[!] Account not found.\n")
+            print("\n--- BANK ORGANIZATION HIERARCHY ---")
+            hierarchy_root.print_tree()
 
         elif choice == "5":
-            acc_num = input("Enter Account Number: ").strip()
-            if acc_num in accounts:
-                try:
-                    amt = float(input("Enter withdrawal amount (ETB): "))
-                    accounts[acc_num].withdraw(amt)
-                    print()
-                except ValueError:
-                    print("[!] Invalid amount.\n")
-            else:
-                print("[!] Account not found.\n")
+            sender = input("Enter Sender Account #: ").strip()
+            receiver = input("Enter Receiver Account #: ").strip()
+            try:
+                amt = float(input("Enter Transfer Amount (ETB): "))
+                if sender in accounts and accounts[sender].withdraw(amt):
+                    if receiver in accounts:
+                        accounts[receiver].deposit(amt)
+                    transfer_graph.add_transfer_edge(sender, receiver, amt)
+                    print(f"[✓] Transferred {amt:.2f} ETB from #{sender} to #{receiver}.")
+            except ValueError:
+                print("[!] Invalid amount.")
 
         elif choice == "6":
-            acc_num = input("Enter Account Number: ").strip()
-            if acc_num in accounts:
-                accounts[acc_num].statement()
-                print()
+            transfer_graph.print_network()
+            start_node = input("\nEnter starting Account # to run traversal search: ").strip()
+            if start_node in transfer_graph.adj_list:
+                print(f"BFS Reachable Accounts: {transfer_graph.bfs_traversal(start_node)}")
+                print(f"DFS Reachable Accounts: {transfer_graph.dfs_traversal(start_node)}")
             else:
-                print("[!] Account not found.\n")
+                print("[!] Account has no registered outgoing transfers.")
 
         elif choice == "7":
-            print("\n--- Applying Interest ---")
-            found = False
-            for acc in accounts.values():
-                if isinstance(acc, InterestBearing):
-                    acc.apply_interest()
-                    found = True
-            if not found:
-                print("[!] No interest-bearing accounts found.")
-            print()
+            acc_num = input("Enter Account #: ").strip()
+            desc = input("Enter Incident/Alert Description: ").strip()
+            try:
+                prio = int(input("Enter Priority Level (1 = Low, 10 = Critical Emergency): "))
+                priority_heap.add_alert(prio, acc_num, desc)
+                print(f"[✓] Alert added with priority level {prio}.")
+            except ValueError:
+                print("[!] Priority must be an integer.")
 
         elif choice == "8":
-            print("\n--- All Accounts ---")
-            if not accounts:
-                print("No accounts exist.")
+            processed = priority_heap.process_highest_priority()
+            if processed:
+                prio, acc, desc = processed
+                print(f"\n[⚡ PROCESSED HIGHEST PRIORITY ALERT]")
+                print(f" Priority Level : {prio}")
+                print(f" Account Number : {acc}")
+                print(f" Description    : {desc}")
             else:
-                for acc in accounts.values():
-                    acc.statement()
-            print()
+                print("\n[!] Priority queue is empty.")
 
         elif choice == "9":
-            acc_num = input("Enter Account Number to Analyze: ").strip()
-            if acc_num not in accounts:
-                print("[!] Account not found.\n")
-                continue
-
-            target_acc = accounts[acc_num]
-            display_dsa_menu()
-            sub_choice = input("Select DSA option (a-g): ").strip().lower()
-
-            if sub_choice == "a":
-                rec_bal = target_acc.calculate_balance_recursive()
-                print(f"\n[✓] Calculated Balance (Recursive): {rec_bal:.2f} ETB\n")
-
-            elif sub_choice == "b":
-                target_acc.sort_transactions_by_amount()
-                print("\n[✓] Transactions Sorted by Amount:")
-                for tx in target_acc.transactions:
-                    print(tx)
-                print()
-
-            elif sub_choice == "c":
-                target_acc.sort_transactions_by_date()
-                print("\n[✓] Transactions Sorted by Date:")
-                for tx in target_acc.transactions:
-                    print(tx)
-                print()
-
-            elif sub_choice == "d":
-                tx_id = input("Enter Transaction ID (e.g., TX12345): ").strip()
-                res = target_acc.linear_search_tx(tx_id)
-                if res:
-                    print(f"\n[✓] Found: {res}\n")
-                else:
-                    print("\n[!] Transaction ID not found.\n")
-
-            elif sub_choice == "e":
-                try:
-                    amt = float(input("Enter Target Amount (ETB): "))
-                    res = target_acc.binary_search_tx(amt)
-                    if res:
-                        print(f"\n[✓] Found via Binary Search: {res}\n")
-                    else:
-                        print("\n[!] Transaction Amount not found.\n")
-                except ValueError:
-                    print("[!] Invalid numerical input.\n")
-
-            elif sub_choice == "f":
-                try:
-                    thresh = float(input("Enter Minimum Threshold Amount (ETB): "))
-                    report = target_acc.filter_large_tx_recursive(thresh)
-                    print(f"\n--- Transactions >= {thresh:.2f} ETB ---")
-                    for tx in report:
-                        print(tx)
-                    print()
-                except ValueError:
-                    print("[!] Invalid input.\n")
-
-            elif sub_choice == "g":
-                print()
-                continue
+            priority_heap.display_pending()
 
         elif choice == "10":
-            print("\nThank you for using Addis Bank System!")
+            print("\nThank you for using Addis Bank System v5.0!")
             break
 
         else:
-            print("[!] Invalid option choice.\n")
+            print("[!] Invalid option choice.")
 
 
 if __name__ == "__main__":
