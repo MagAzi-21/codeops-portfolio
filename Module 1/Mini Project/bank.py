@@ -1,6 +1,6 @@
-# CodeOps | Module 1 | Day 7 | Larger Project
-# Addis Bank — Account Management System V4.0
-# Added: per-account transaction history stack + undo
+# CodeOps | Module 1 | Day 8 | Larger Project
+# Addis Bank — Account Management System V5.0
+# Added: history property for recursive transaction sum
 
 
 # SINGLETON — shared configuration
@@ -35,11 +35,16 @@ class Account:
         self.account_number = account_number
         self.__balance = balance
         self._observers = []
-        self._history = []          
+        self._history = []
 
     @property
     def balance(self):
         return self.__balance
+
+    @property
+    def history(self):
+        """Return a copy of the transaction history for external use."""
+        return self._history.copy()
 
     def subscribe(self, observer):
         self._observers.append(observer)
@@ -52,7 +57,7 @@ class Account:
         if amount <= 0:
             raise ValueError("Amount must be positive")
         self.__balance += amount
-        self._history.append(("deposit", amount))   
+        self._history.append(("deposit", amount))
         self._notify(f"Deposit +{amount:.2f} ETB >> #{self.account_number}")
 
     def withdraw(self, amount: float):
@@ -61,18 +66,17 @@ class Account:
         if amount > self.__balance:
             raise ValueError("Insufficient funds")
         self.__balance -= amount
-        self._history.append(("withdraw", amount))  
+        self._history.append(("withdraw", amount))
         self._notify(f"Withdrawal -{amount:.2f} ETB >> #{self.account_number}")
 
     def undo_last(self):
-        """Pop the most recent transaction and reverse its effect."""
         if not self._history:
             raise ValueError("No transactions to undo")
         tx_type, amount = self._history.pop()
         if tx_type == "deposit":
-            self.__balance -= amount         
+            self.__balance -= amount
         else:
-            self.__balance += amount          
+            self.__balance += amount
         self._notify(f"Undo {tx_type} {amount:.2f} ETB >> #{self.account_number}")
 
     def statement(self):
@@ -88,7 +92,7 @@ class SavingsAccount(Account):
 
     def add_interest(self):
         interest = self.balance * self.rate
-        self.deposit(interest)   
+        self.deposit(interest)
 
     def statement(self):
         print(f"[Savings] {self.owner} | #{self.account_number} | "
@@ -111,7 +115,7 @@ class CurrentAccount(Account):
         if amount > max_available:
             raise ValueError(f"Overdraft limit exceeded (max available: {max_available:.2f} ETB)")
         self._Account__balance -= amount
-        self._history.append(("withdraw", amount))   
+        self._history.append(("withdraw", amount))
         self._notify(f"Withdrawal -{amount:.2f} ETB >> #{self.account_number} (overdraft zone)")
 
     def statement(self):
@@ -120,7 +124,7 @@ class CurrentAccount(Account):
 
 
 
-# factory
+# FACTORY
 class AccountFactory:
     @staticmethod
     def create(kind: str, owner: str, number: str, balance: float = 0):

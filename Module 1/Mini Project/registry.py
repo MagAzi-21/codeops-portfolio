@@ -1,18 +1,30 @@
-# CodeOps | Module 1 | Day 7 | Larger Project
-# Addis Bank — Account Registry (O(1) lookup + ordered listing)
+# CodeOps | Module 1 | Day 8 | Larger Project
+# Addis Bank — Account Registry V2.0
+# Added: top_by_balance, binary_search find_by_number, recursive total_transactions
 
 from bank import AccountFactory, SMSAlert, AuditLog
 
 
-class AccountRegistry:
-    """
-    Stores accounts in a dict for O(1) lookup by account number
-    and a list to preserve insertion order.
-    """
+# binary search — no 'in' operator, no loop over data
+def binary_search(items, target):
+    lo, hi = 0, len(items) - 1
+    while lo <= hi:
+        mid = (lo + hi) // 2
+        if items[mid] == target:
+            return mid
+        elif items[mid] < target:
+            lo = mid + 1
+        else:
+            hi = mid - 1
+    return -1
 
+
+
+# REGISTRY
+class AccountRegistry:
     def __init__(self):
-        self.by_number = {}     
-        self.order = []         
+        self.by_number = {}
+        self.order = []
 
     def add(self, acc):
         if acc.account_number in self.by_number:
@@ -21,15 +33,44 @@ class AccountRegistry:
         self.order.append(acc)
 
     def find(self, number: str):
-        """O(1) lookup — single dict get, never a loop."""
+        # O(1) dict lookup
         return self.by_number.get(number)
 
     def list_all(self):
-        """Return accounts in the order they were added."""
         return self.order
 
+    # day 8 additions
+
+    def top_by_balance(self, n=5):
+        # return the n highest-balance accounts, sorted descending
+        accts = sorted(self.by_number.values(),
+                       key=lambda a: a.balance, reverse=True)
+        return accts[:n]
+
+    def find_by_number(self, number: str):
+        # binary search over sorted account numbers
+        nums = sorted(self.by_number.keys())
+        i = binary_search(nums, number)
+        if i >= 0:
+            return self.by_number[nums[i]]
+        return None
+
+    def total_transactions(self, number: str):
+        # recursively sum one account's transaction history
+        acc = self.find(number)
+        if acc is None:
+            return 0
+        history = acc.history
+        return self._rec_sum(history, len(history) - 1)
+
+    def _rec_sum(self, history, index):
+        # base case: nothing left to sum
+        if index < 0:
+            return 0
+        # recursive case: last amount + sum of everything before it
+        return history[index][1] + self._rec_sum(history, index - 1)
+
     def undo_last(self, number: str):
-        """Delegate undo to the account's own history stack."""
         acc = self.find(number)
         if acc is None:
             raise ValueError("Account not found")
@@ -37,58 +78,55 @@ class AccountRegistry:
 
 
 
-#Registry + History + Undo
+# demo
 if __name__ == "__main__":
     registry = AccountRegistry()
-
-    # create & subscribe observers
     sms = SMSAlert()
     audit = AuditLog()
 
-    acc1 = AccountFactory.create("savings", "Almaz Bekele", "SAV-2001", 1500)
-    acc2 = AccountFactory.create("current", "Dawit Tesfaye", "CUR-3001", 800)
-    acc3 = AccountFactory.create("savings", "Hanna Girma", "SAV-2002", 3000)
-
-    for acc in (acc1, acc2, acc3):
+    # seed the registry
+    accounts = [
+        AccountFactory.create("savings", "Almaz Bekele",  "SAV-2001", 1500),
+        AccountFactory.create("current", "Dawit Tesfaye",  "CUR-3001", 800),
+        AccountFactory.create("savings", "Hanna Girma",    "SAV-2002", 3000),
+        AccountFactory.create("current", "Bethlehem Alem", "CUR-3002", 5000),
+        AccountFactory.create("savings", "Yonas Tadesse",  "SAV-2003", 1200),
+    ]
+    for acc in accounts:
         acc.subscribe(sms)
         acc.subscribe(audit)
         registry.add(acc)
 
-    #O(1) lookup
-    print("-" * 55)
-    print("O(1) LOOKUP")
-    print("-" * 55)
-    found = registry.find("CUR-3001")
-    found.statement()
+    # build some history
+    registry.find("SAV-2001").deposit(500)
+    registry.find("SAV-2001").add_interest()
+    registry.find("CUR-3001").withdraw(300)
+    registry.find("SAV-2002").deposit(1000)
+    registry.find("CUR-3002").withdraw(2000)
 
-    #Transactions (auto-logged to history)
+    print("-" * 55)
+    print("TOP 3 BY BALANCE")
+    print("-" * 55)
+    for i, acc in enumerate(registry.top_by_balance(3), 1):
+        print(f"  {i}. {acc.owner:<16} | #{acc.account_number} | {acc.balance:.2f} ETB")
+
     print("\n" + "-" * 55)
-    print("TRANSACTIONS")
+    print("BINARY SEARCH")
     print("-" * 55)
-    acc1.deposit(500)     
-    acc1.add_interest()     
-    acc2.withdraw(1200)     
+    for target in ["SAV-2002", "FAKE-999"]:
+        result = registry.find_by_number(target)
+        print(f"  Search '{target}':", result.owner if result else "Not found")
 
-    print("\n--- Before undo ---")
+    print("\n" + "-" * 55)
+    print("RECURSIVE TRANSACTION TOTALS")
+    print("-" * 55)
+    for num in ["SAV-2001", "CUR-3001", "SAV-2002"]:
+        acc = registry.find(num)
+        total = registry.total_transactions(num)
+        print(f"  #{num} | {acc.owner:<16} | Total: {total:.2f} ETB")
+
+    print("\n" + "-" * 55)
+    print("ALL ACCOUNTS")
+    print("-" * 55)
     for acc in registry.list_all():
         acc.statement()
-
-    #Undo LIFO
-    print("\n" + "-" * 55)
-    print("UNDO LAST (LIFO)")
-    print("-" * 55)
-    registry.undo_last("SAV-2001")   
-    registry.undo_last("CUR-3001")   
-
-    print("\n--- After undo ---")
-    for acc in registry.list_all():
-        acc.statement()
-
-    #Big-O explanation
-    print("\n" + "-" * 55)
-    print("COMPLEXITY")
-    print("-" * 55)
-    print("add()      >> O(1)  (dict set + list append)")
-    print("find()     >> O(1)  (dict get by key)")
-    print("list_all() >> O(n)  (returns the list, one pass to print)")
-    print("undo_last()>> O(1)  (list pop from account history)")
