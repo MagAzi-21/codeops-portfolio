@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CBE Online Banking Dashboard</title>
+    <meta name="description" content="Dashboard interface layout recreation for Commercial Bank of Ethiopia (CBE).">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Sticky Header with Flexbox Navbar -->
+        <header class="app-header">
+            <div class="brand">
+                <span class="brand-logo">CBE</span>
+                <span class="brand-name">Commercial Bank of Ethiopia</span>
+            </div>
+            <div class="header-actions">
+                <span class="user-greeting">Welcome, Customer</span>
+                <button type="button" class="btn-logout">Logout</button>
+            </div>
+        </header>
+
+        <!-- Sidebar Navigation -->
+        <aside class="app-sidebar">
+            <nav class="sidebar-nav">
+                <a href="#overview" class="nav-item active">Account Overview</a>
+                <a href="#transfers" class="nav-item">Transfers & CBE Birr</a>
+                <a href="#bills" class="nav-item">Bill Payments</a>
+                <a href="#statements" class="nav-item">Statements</a>
+                <a href="#settings" class="nav-item">Security Settings</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="app-main">
+            <div class="main-toolbar">
+                <h2>Account Summary</h2>
+                <button type="button" class="btn-primary">+ New Transfer</button>
+            </div>
+
+            <!-- Responsive Auto-Fit Stat Cards Grid with Relative/Absolute Badges -->
+            <section class="stat-grid">
+                <article class="stat-card">
+                    <span class="card-badge primary">Active</span>
+                    <h3 class="stat-title">Savings Account</h3>
+                    <p class="account-number">1000238491023</p>
+                    <p class="stat-value">124,500.00 <span class="currency">ETB</span></p>
+                </article>
+
+                <article class="stat-card">
+                    <span class="card-badge success">Verified</span>
+                    <h3 class="stat-title">CBE Birr Wallet</h3>
+                    <p class="account-number">+251 911 234 567</p>
+                    <p class="stat-value">8,420.50 <span class="currency">ETB</span></p>
+                </article>
+
+                <article class="stat-card">
+                    <span class="card-badge neutral">Fixed</span>
+                    <h3 class="stat-title">Term Deposit</h3>
+                    <p class="account-number">3000984721948</p>
+                    <p class="stat-value">50,000.00 <span class="currency">ETB</span></p>
+                </article>
+            </section>
+
+            <!-- Transactions Section -->
+            <section class="transactions-section">
+                <h3>Recent Transactions</h3>
+                <div class="transaction-list">
+                    <div class="tx-item">
+                        <div class="tx-info">
+                            <strong>Ethio Telecom Bill Payment</strong>
+                            <small>Today, 14:32</small>
+                        </div>
+                        <div class="tx-amount negative">-850.00 ETB</div>
+                    </div>
+                    <div class="tx-item">
+                        <div class="tx-info">
+                            <strong>Deposit - CBE Birr Transfer</strong>
+                            <small>Yesterday, 09:15</small>
+                        </div>
+                        <div class="tx-amount positive">+5,000.00 ETB</div>
+                    </div>
+                    <div class="tx-item">
+                        <div class="tx-info">
+                            <strong>Bole Merchant POS Payment</strong>
+                            <small>Oct 24, 18:40</small>
+                        </div>
+                        <div class="tx-amount negative">-1,200.00 ETB</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer Area -->
+        <footer class="app-footer">
+            <p>&copy; 2026 Commercial Bank of Ethiopia. Always the Real Reliable Partner.</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Day 14 Exercises - Flexbox & Grid</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.5;
+            padding: 24px;
+            color: #2D3748;
+            background-color: #F7FAFC;
+        }
+
+        section {
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 32px;
+        }
+
+        h2 {
+            margin-bottom: 16px;
+            font-size: 1.25rem;
+        }
+
+        /* Exercise 1: Flexbox Navbar */
+        .ex1-navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #1A365D;
+            color: #FFFFFF;
+            padding: 12px 24px;
+            border-radius: 6px;
+        }
+
+        .ex1-links-cluster {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .ex1-links-cluster a {
+            color: #E2E8F0;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .ex1-btn {
+            background-color: #D69E2E;
+            color: #1A202C;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Exercise 2: Flex Cards with Wrap */
+        .ex2-card-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .ex2-card {
+            flex: 1 1 200px;
+            background-color: #EDF2F7;
+            border: 1px solid #CBD5E0;
+            padding: 16px;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        /* Exercise 3: Auto-fit Photo Grid */
+        .ex3-photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .ex3-photo-card {
+            background-color: #2B6CB0;
+            color: #FFFFFF;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        /* Exercise 4: Named Grid Areas Layout */
+        .ex4-page-layout {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            grid-template-areas:
+                "header header"
+                "sidebar main"
+                "footer footer";
+            gap: 12px;
+            min-height: 250px;
+        }
+
+        .ex4-header  { grid-area: header; background: #4A5568; color: #fff; padding: 12px; }
+        .ex4-sidebar { grid-area: sidebar; background: #E2E8F0; padding: 12px; }
+        .ex4-main    { grid-area: main; background: #EDF2F7; padding: 12px; }
+        .ex4-footer  { grid-area: footer; background: #4A5568; color: #fff; padding: 12px; }
+
+        @media (max-width: 700px) {
+            .ex4-page-layout {
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    "header"
+                    "sidebar"
+                    "main"
+                    "footer";
+            }
+        }
+
+        /* Exercise 5: Relative/Absolute Product Badge */
+        .ex5-product-card {
+            position: relative;
+            max-width: 260px;
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            padding: 24px 16px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .ex5-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #E53E3E;
+            color: #FFFFFF;
+            font-size: 0.75rem;
+            font-weight: bold;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            line-height: 1.1;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <h2>Exercise 1: Flexbox Navbar</h2>
+        <nav class="ex1-navbar">
+            <div class="ex1-logo"><strong>HabeshaMarket</strong></div>
+            <div class="ex1-links-cluster">
+                <a href="#shop">Shop</a>
+                <a href="#categories">Categories</a>
+                <a href="#orders">Orders</a>
+                <button type="button" class="ex1-btn">Account</button>
+            </div>
+        </nav>
+    </section>
+
+    <section>
+        <h2>Exercise 2: Flex Cards with Wrap</h2>
+        <div class="ex2-card-row">
+            <div class="ex2-card">Card Item 1</div>
+            <div class="ex2-card">Card Item 2</div>
+            <div class="ex2-card">Card Item 3</div>
+            <div class="ex2-card">Card Item 4</div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Exercise 3: Auto-Fit Grid (Resize window to test)</h2>
+        <div class="ex3-photo-grid">
+            <div class="ex3-photo-card">Image Track 1</div>
+            <div class="ex3-photo-card">Image Track 2</div>
+            <div class="ex3-photo-card">Image Track 3</div>
+            <div class="ex3-photo-card">Image Track 4</div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Exercise 4: Named Grid Areas (Collapses under 700px)</h2>
+        <div class="ex4-page-layout">
+            <header class="ex4-header">Header Area</header>
+            <aside class="ex4-sidebar">Sidebar Area</aside>
+            <main class="ex4-main">Main Content Area</main>
+            <footer class="ex4-footer">Footer Area</footer>
+        </div>
+    </section>
+
+    <section>
+        <h2>Exercise 5: Absolute Badge on Relative Parent</h2>
+        <article class="ex5-product-card">
+            <span class="ex5-badge">ETB SALE</span>
+            <h3>Yirgacheffe Roast</h3>
+            <p>100% Organic Highland Coffee</p>
+            <p><strong>450 ETB</strong></p>
+        </article>
+    </section>
+</body>
+</html>
