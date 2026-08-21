@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Day 12 Exercises - Ethio Telecom & ET Flights</title>
+    <meta name="description" content="Day 12 practice exercises covering accessible forms, tables, media elements, and semantic fixes.">
+</head>
+<body>
+    <header>
+        <h1>Day 12 Practice Exercises</h1>
+    </header>
+
+    <main>
+        <section id="exercise-1">
+            <h2>Exercise 1: Ethio Telecom Registration</h2>
+            <!-- POST is used because this submits personal registration data to the server -->
+            <form action="/register" method="post">
+                <fieldset>
+                    <legend>Customer Details</legend>
+                    
+                    <p>
+                        <label for="reg-name">Full Name</label>
+                        <input id="reg-name" name="fullname" type="text" required>
+                    </p>
+
+                    <p>
+                        <label for="reg-email">Email Address</label>
+                        <input id="reg-email" name="email" type="email" required>
+                    </p>
+
+                    <p>
+                        <label for="reg-tel">Phone (TeleBirr)</label>
+                        <input id="reg-tel" name="phone" type="tel" pattern="\+251[0-9]{9}" required aria-describedby="tel-instruction">
+                        <small id="tel-instruction">Format: +251 followed by 9 digits</small>
+                    </p>
+
+                    <p>
+                        <label for="reg-branch">Select Branch</label>
+                        <select id="reg-branch" name="branch" required>
+                            <option value="">-- Choose Branch --</option>
+                            <option value="bole">Bole</option>
+                            <option value="kazanchis">Kazanchis</option>
+                            <option value="piassa">Piassa</option>
+                        </select>
+                    </p>
+
+                    <button type="submit">Register Service</button>
+                </fieldset>
+            </form>
+        </section>
+
+        <section id="exercise-2">
+            <h2>Exercise 2: Ethiopian Airlines Flight Table</h2>
+            <table>
+                <caption>Ethiopian Airlines Domestic Flight Schedule</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Flight</th>
+                        <th scope="col">From</th>
+                        <th scope="col">To</th>
+                        <th scope="col">Departs</th>
+                        <th scope="col">Price (ETB)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">ET 102</th>
+                        <td>Addis Ababa (ADD)</td>
+                        <td>Dire Dawa (DIR)</td>
+                        <td>07:30</td>
+                        <td>4,200</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">ET 124</th>
+                        <td>Addis Ababa (ADD)</td>
+                        <td>Bahir Dar (BJR)</td>
+                        <td>09:15</td>
+                        <td>3,850</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">ET 140</th>
+                        <td>Addis Ababa (ADD)</td>
+                        <td>Gondar (GDQ)</td>
+                        <td>11:00</td>
+                        <td>4,100</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">ET 162</th>
+                        <td>Addis Ababa (ADD)</td>
+                        <td>Hawassa (HWA)</td>
+                        <td>14:20</td>
+                        <td>3,200</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">ET 188</th>
+                        <td>Addis Ababa (ADD)</td>
+                        <td>Mekelle (MQX)</td>
+                        <td>16:45</td>
+                        <td>4,600</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="exercise-3">
+            <h2>Exercise 3: Accessible Media</h2>
+            <figure>
+                <img src="lalibela.jpg" alt="Rock-hewn church of Bete Giyorgis standing in a deep trench cut out of solid volcanic rock" width="600" height="400" loading="lazy">
+                <figcaption>Bete Giyorgis (Church of Saint George), Lalibela.</figcaption>
+            </figure>
+
+            <iframe src="https://maps.google.com/maps?q=Bole+Addis+Ababa&output=embed" title="Google Map showing location in Bole, Addis Ababa" width="600" height="350" loading="lazy"></iframe>
+        </section>
+
+        <section id="exercise-4">
+            <h2>Exercise 4: Accessibility Fixes</h2>
+            <!-- 
+                Fix 1: Replaced generic div with native <button>. Gives focusability, screen-reader role announcement, and Space/Enter key triggering.
+                Fix 2: Added <label> linked via for/id. Allows tap-to-focus and screen readers announce the input name.
+                Fix 3: Added descriptive alt attribute to <img>. Screen readers read content context instead of raw filename.
+            -->
+            <button type="button">Book Now</button>
+
+            <label for="guest-name">Guest Name</label>
+            <input id="guest-name" name="guest_name" type="text">
+
+            <img src="doro-wat.jpg" alt="Traditional spicy Ethiopian chicken stew served on injera flatbread" width="300" height="200">
+        </section>
+    </main>
+</body>
+</html>

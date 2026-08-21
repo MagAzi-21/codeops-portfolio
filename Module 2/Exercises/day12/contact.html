@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Contact & Hours - Habesha Eatery Bole</title>
+    <meta name="description" content="Get in touch with Habesha Eatery in Bole, Addis Ababa. View our opening hours and send us an inquiry.">
+</head>
+<body>
+    <header>
+        <h1>Contact Habesha Eatery</h1>
+        <nav>
+            <a href="index.html">Reservations</a>
+            <a href="contact.html">Contact & Hours</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="contact-form-section">
+            <h2>Send Us a Message</h2>
+            <form action="/contact" method="post">
+                <p>
+                    <label for="contact-name">Name</label>
+                    <input id="contact-name" name="name" type="text" required>
+                </p>
+                <p>
+                    <label for="contact-email">Email</label>
+                    <input id="contact-email" name="email" type="email" required>
+                </p>
+                <p>
+                    <label for="contact-message">Message</label>
+                    <textarea id="contact-message" name="message" rows="5" required></textarea>
+                </p>
+                <button type="submit">Send Message</button>
+            </form>
+        </section>
+
+        <section id="hours">
+            <h2>Opening Hours</h2>
+            <table>
+                <caption>Weekly restaurant operating schedule</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Day</th>
+                        <th scope="col">Hours</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">Monday - Thursday</th>
+                        <td>08:00 AM - 10:00 PM</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Friday - Saturday</th>
+                        <td>08:00 AM - 11:30 PM</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Sunday</th>
+                        <td>09:00 AM - 09:00 PM</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        <p>Location: Bole, Addis Ababa | Phone: +251 911 234 567</p>
+    </footer>
+</body>
+</html>

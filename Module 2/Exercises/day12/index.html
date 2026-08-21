@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Habesha Eatery - Authentic Dining & Table Reservations</title>
+    <meta name="description" content="Reserve a table at Habesha Eatery in Bole, Addis Ababa and view our authentic traditional menu.">
+</head>
+<body>
+    <header>
+        <h1>Habesha Eatery</h1>
+        <nav>
+            <a href="index.html">Reservations</a>
+            <a href="contact.html">Contact & Hours</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="reservations">
+            <h2>Book a Table</h2>
+            <form action="/reserve" method="post">
+                <p>
+                    <label for="fullname">Full Name</label>
+                    <input id="fullname" name="fullname" type="text" required>
+                </p>
+                <p>
+                    <label for="tel">Phone Number (TeleBirr)</label>
+                    <input id="tel" name="tel" type="tel" pattern="\+251[0-9]{9}" required aria-describedby="tel-help">
+                    <small id="tel-help">Format: +251 followed by 9 digits</small>
+                </p>
+                <p>
+                    <label for="party-size">Party Size</label>
+                    <input id="party-size" name="party_size" type="number" min="1" max="12" required>
+                </p>
+                <p>
+                    <label for="res-date">Reservation Date</label>
+                    <input id="res-date" name="res_date" type="date" required>
+                </p>
+                <button type="submit">Confirm Reservation</button>
+            </form>
+        </section>
+
+        <section id="menu">
+            <h2>Main Menu</h2>
+            <table>
+                <caption>Habesha Eatery signature dishes and current prices</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Dish</th>
+                        <th scope="col">Price (ETB)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">Doro Wat</th>
+                        <td>320</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Shiro Tegabino</th>
+                        <td>180</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Special Tibs</th>
+                        <td>360</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Beyaynetu</th>
+                        <td>220</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="gallery">
+            <h2>Our Kitchen</h2>
+            <figure>
+                <img src="doro-wat.jpg" alt="A freshly prepared plate of spicy doro wat garnished with boiled egg and served on injera" width="640" height="420" loading="lazy">
+                <figcaption>Freshly prepared traditional Doro Wat.</figcaption>
+            </figure>
+            <iframe src="https://maps.google.com/maps?q=Bole+Addis+Ababa&output=embed" title="Map showing Habesha Eatery in Bole, Addis Ababa" width="100%" height="320" loading="lazy"></iframe>
+        </section>
+    </main>
+
+    <footer>
+        <p>Location: Bole, Addis Ababa | Phone: +251 911 234 567</p>
+    </footer>
+</body>
+</html>
