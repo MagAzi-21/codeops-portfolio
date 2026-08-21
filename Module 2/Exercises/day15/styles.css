@@ -1,0 +1,502 @@
+/* ==========================================================================
+   1. Design Tokens & Global Reset
+   ========================================================================== */
+:root {
+    --primary: hsl(212, 68%, 33%);
+    --primary-hover: hsl(212, 68%, 25%);
+    --accent: hsl(42, 69%, 49%);
+    --accent-hover: hsl(42, 69%, 40%);
+    --success: hsl(146, 50%, 36%);
+    --text-dark: hsl(215, 28%, 17%);
+    --text-muted: hsl(215, 16%, 47%);
+    --bg-page: hsl(210, 40%, 98%);
+    --bg-surface: hsl(0, 0%, 100%);
+    --border-color: hsl(214, 32%, 91%);
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
+    --space-xs: 8px;
+    --space-sm: 16px;
+    --space-md: 24px;
+    --space-lg: 48px;
+    --space-xl: 72px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: var(--text-dark);
+    background-color: var(--bg-page);
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* ==========================================================================
+   2. Layout & Typography Utilities
+   ========================================================================== */
+.section-container {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 var(--space-md);
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: var(--space-lg);
+}
+
+.section-header h2 {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    margin: var(--space-xs) 0;
+    color: var(--primary);
+}
+
+.section-header p {
+    color: var(--text-muted);
+}
+
+.section-badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent-hover);
+    background: hsla(42, 69%, 49%, 0.15);
+    padding: 4px 10px;
+    border-radius: var(--radius-sm);
+}
+
+/* Button UI with GPU-accelerated Hover State */
+.btn {
+    display: inline-block;
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 12px 24px;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: transform 200ms ease, background-color 200ms ease, box-shadow 200ms ease;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: #FFFFFF;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(27, 77, 142, 0.25);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+}
+
+.btn-secondary:hover {
+    background-color: hsla(212, 68%, 33%, 0.05);
+    transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   3. Sticky Flexbox Navbar
+   ========================================================================== */
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background-color: var(--bg-surface);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.navbar {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 14px var(--space-md);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.brand-logo {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.brand-logo span {
+    color: var(--accent);
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-dark);
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: color 150ms ease;
+}
+
+.nav-links a:hover {
+    color: var(--primary);
+}
+
+.nav-cta {
+    background-color: var(--primary);
+    color: #FFFFFF !important;
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
+}
+
+/* ==========================================================================
+   4. Hero Section
+   ========================================================================== */
+.hero-section {
+    background: linear-gradient(180deg, #F0F5FA 0%, #FFFFFF 100%);
+    padding: var(--space-xl) var(--space-md);
+    text-align: center;
+}
+
+.hero-content {
+    max-width: 780px;
+    margin: 0 auto;
+}
+
+.hero-tag {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--primary);
+    background-color: hsla(212, 68%, 33%, 0.1);
+    padding: 6px 14px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: var(--space-sm);
+}
+
+.hero-title {
+    font-size: clamp(1.85rem, 5vw, 3.25rem);
+    line-height: 1.15;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: var(--space-sm);
+}
+
+.hero-subtitle {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color: var(--text-muted);
+    margin-bottom: var(--space-md);
+}
+
+.hero-actions {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+}
+
+/* ==========================================================================
+   5. About Section
+   ========================================================================== */
+.about-section {
+    padding: var(--space-xl) 0;
+    background-color: var(--bg-surface);
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+    align-items: center;
+}
+
+.about-text h2 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    color: var(--primary);
+    margin: var(--space-xs) 0 var(--space-sm);
+}
+
+.about-text p {
+    color: var(--text-muted);
+    margin-bottom: var(--space-sm);
+}
+
+.about-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+.feature-item {
+    background-color: var(--bg-page);
+    border: 1px solid var(--border-color);
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+}
+
+.feature-item h3 {
+    font-size: 1.1rem;
+    color: var(--primary);
+    margin-bottom: 4px;
+}
+
+.feature-item p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+/* ==========================================================================
+   6. Responsive Menu Grid (1 -> 2 -> 3 Columns)
+   ========================================================================== */
+.menu-section {
+    padding: var(--space-xl) 0;
+}
+
+/* Mobile-First: 1 column default */
+.menu-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+}
+
+.menu-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+}
+
+.menu-card:hover {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.08);
+    border-color: var(--primary);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--space-xs);
+}
+
+.dish-badge {
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: hsla(212, 68%, 33%, 0.1);
+    color: var(--primary);
+}
+
+.dish-badge.vegan {
+    background: hsla(146, 50%, 36%, 0.12);
+    color: var(--success);
+}
+
+.dish-price {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.dish-price .currency {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.dish-desc {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+/* ==========================================================================
+   7. Reservation Form (Accessible & Validated)
+   ========================================================================== */
+.reserve-section {
+    padding: var(--space-xl) 0;
+    background-color: var(--bg-surface);
+}
+
+.form-wrapper {
+    max-width: 680px;
+}
+
+.reservation-form {
+    background: var(--bg-page);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: var(--space-sm);
+}
+
+.form-group label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--text-dark);
+}
+
+.form-group input,
+.form-group textarea {
+    padding: 10px 14px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    background-color: var(--bg-surface);
+    transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px hsla(212, 68%, 33%, 0.15);
+}
+
+.input-hint {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+.submit-btn {
+    width: 100%;
+    margin-top: var(--space-xs);
+}
+
+/* ==========================================================================
+   8. Footer
+   ========================================================================== */
+.site-footer {
+    background-color: #0A1F3D;
+    color: #FFFFFF;
+    padding: var(--space-xl) var(--space-md) var(--space-md);
+}
+
+.footer-container {
+    max-width: 1140px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+}
+
+.footer-brand h3 {
+    font-size: 1.3rem;
+    color: var(--accent);
+    margin-bottom: var(--space-xs);
+}
+
+.footer-brand p,
+.footer-details p,
+.footer-hours p {
+    font-size: 0.9rem;
+    color: #A0AEC0;
+    margin-bottom: 6px;
+}
+
+.footer-details h4,
+.footer-hours h4 {
+    font-size: 1rem;
+    color: #FFFFFF;
+    margin-bottom: var(--space-xs);
+}
+
+.footer-bottom {
+    max-width: 1140px;
+    margin: var(--space-lg) auto 0;
+    padding-top: var(--space-md);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    font-size: 0.8rem;
+    color: #718096;
+}
+
+/* ==========================================================================
+   9. Mobile-First Media Queries (Enhancement)
+   ========================================================================== */
+/* Tablet Breakpoint (768px): 2 Columns */
+@media (min-width: 768px) {
+    .about-grid {
+        grid-template-columns: 1.2fr 1fr;
+    }
+
+    .menu-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .footer-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Desktop Breakpoint (1024px): 3 Columns */
+@media (min-width: 1024px) {
+    .menu-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .footer-container {
+        grid-template-columns: 1.5fr 1fr 1fr;
+    }
+}
+
+/* ==========================================================================
+   10. Accessibility: Prefers Reduced Motion Guard
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}

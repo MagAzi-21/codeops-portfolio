@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habesha Eatery | Authentic Dining in Bole, Addis Ababa</title>
+    <meta name="description" content="Experience authentic Ethiopian dining at Habesha Eatery in Bole. Browse our menu and book your table online.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 1. Sticky Flexbox Navbar -->
+    <header class="site-header">
+        <nav class="navbar">
+            <a href="#" class="brand-logo">Habesha<span>Eatery</span></a>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#menu">Menu</a>
+                <a href="#reserve" class="nav-cta">Reserve Table</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- 2. Hero Section with Fluid Type & CTA -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <span class="hero-tag">Traditional & Organic</span>
+                <h1 class="hero-title">Authentic Ethiopian Dining in the Heart of Bole</h1>
+                <p class="hero-subtitle">Hand-crafted culinary traditions, wood-fired injera, and single-origin highland roasts delivered fresh daily.</p>
+                <div class="hero-actions">
+                    <a href="#reserve" class="btn btn-primary">Book a Table</a>
+                    <a href="#menu" class="btn btn-secondary">Explore Menu</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. About Section -->
+        <section id="about" class="about-section">
+            <div class="section-container">
+                <div class="about-grid">
+                    <div class="about-text">
+                        <span class="section-badge">Our Heritage</span>
+                        <h2>Honoring Centuries of Shared Meals</h2>
+                        <p>Founded in Addis Ababa, Habesha Eatery brings the warmth of the Ethiopian table to life. Every morning begins with stone-ground teff fermentation and slow-simmered berbere spice blends.</p>
+                        <p>We source 100% organic highland ingredients from local smallholder farms across Oromia and SNNPR to guarantee uncompromised flavor.</p>
+                    </div>
+                    <div class="about-card">
+                        <div class="feature-item">
+                            <h3>100% Pure Teff</h3>
+                            <p>Authentic, gluten-free traditional injera baked fresh every morning.</p>
+                        </div>
+                        <div class="feature-item">
+                            <h3>Direct Spice Trade</h3>
+                            <p>Hand-selected single-estate spices roasted and ground in-house.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Menu Grid (1 -> 2 -> 3 Columns Reflow) -->
+        <section id="menu" class="menu-section">
+            <div class="section-container">
+                <div class="section-header">
+                    <span class="section-badge">Signature Dishes</span>
+                    <h2>Explore Our Kitchen</h2>
+                    <p>Curated traditional platters and highland specialties.</p>
+                </div>
+
+                <div class="menu-grid">
+                    <article class="menu-card">
+                        <div class="card-header">
+                            <span class="dish-badge">House Special</span>
+                            <h3>Special Doro Wat</h3>
+                            <p class="dish-price">320 <span class="currency">ETB</span></p>
+                        </div>
+                        <p class="dish-desc">Slow-cooked tender chicken drumstick simmered in rich spiced berbere sauce, served with hard-boiled farm egg and injera.</p>
+                    </article>
+
+                    <article class="menu-card">
+                        <div class="card-header">
+                            <span class="dish-badge vegan">Fasting / Vegan</span>
+                            <h3>Shiro Tegabino</h3>
+                            <p class="dish-price">180 <span class="currency">ETB</span></p>
+                        </div>
+                        <p class="dish-desc">Velvety ground chickpea stew cooked with garlic, onions, and herbal niter kibbeh, served bubbling hot in a traditional clay pot.</p>
+                    </article>
+
+                    <article class="menu-card">
+                        <div class="card-header">
+                            <span class="dish-badge">Chef Choice</span>
+                            <h3>Special Derek Tibs</h3>
+                            <p class="dish-price">360 <span class="currency">ETB</span></p>
+                        </div>
+                        <p class="dish-desc">Pan-seared prime beef cubes flash-fried with rosemary, sliced jalapeños, and white onions. Accompanied by spicy awaze dip.</p>
+                    </article>
+
+                    <article class="menu-card">
+                        <div class="card-header">
+                            <span class="dish-badge vegan">Fasting / Vegan</span>
+                            <h3>Beyaynetu Platter</h3>
+                            <p class="dish-price">220 <span class="currency">ETB</span></p>
+                        </div>
+                        <p class="dish-desc">A colorful feast of yellow split peas (kik alicha), spicy red lentils (misir wat), collard greens (gomen), and beet salad.</p>
+                    </article>
+
+                    <article class="menu-card">
+                        <div class="card-header">
+                            <span class="dish-badge">Breakfast</span>
+                            <h3>Chechebsa (Kita Firfir)</h3>
+                            <p class="dish-price">160 <span class="currency">ETB</span></p>
+                        </div>
+                        <p class="dish-desc">Shredded pan-baked unleavened flatbread tossed in spiced clarified butter and berbere, served with a side of fresh curd honey yoghurt.</p>
+                    </article>
+
+                    <article class="menu-card">
+                        <div class="card-header">
+                            <span class="dish-badge">Drink</span>
+                            <h3>Jebena Buna Ceremony</h3>
+                            <p class="dish-price">80 <span class="currency">ETB</span></p>
+                        </div>
+                        <p class="dish-desc">Freshly roasted, ground, and brewed Yirgacheffe coffee beans served in traditional clay jebena pots alongside roasted barley (kolo).</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Reservation Form with Labels & Native Validation -->
+        <section id="reserve" class="reserve-section">
+            <div class="section-container form-wrapper">
+                <div class="section-header">
+                    <span class="section-badge">Book Online</span>
+                    <h2>Reserve a Dining Table</h2>
+                    <p>Instant confirmation for small parties and family gatherings.</p>
+                </div>
+
+                <form action="/reserve" method="post" class="reservation-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="fullname">Full Name</label>
+                            <input id="fullname" name="fullname" type="text" placeholder="Abebe Bikila" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Phone Number (TeleBirr)</label>
+                            <input id="phone" name="phone" type="tel" pattern="\+251[0-9]{9}" placeholder="+251911234567" required aria-describedby="phone-hint">
+                            <small id="phone-hint" class="input-hint">Format: +251 followed by 9 digits</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="party-size">Party Size</label>
+                            <input id="party-size" name="party_size" type="number" min="1" max="20" placeholder="2" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="res-date">Reservation Date</label>
+                            <input id="res-date" name="res_date" type="date" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="special-requests">Special Dietary Requirements (Optional)</label>
+                        <textarea id="special-requests" name="special_requests" rows="3" placeholder="Fasting food, seating preference..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary submit-btn">Confirm Reservation</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- 6. Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h3>Habesha Eatery</h3>
+                <p>Authentic Ethiopian culinary excellence in Bole Medhanialem, Addis Ababa.</p>
+            </div>
+            <div class="footer-details">
+                <h4>Contact & Location</h4>
+                <p>Bole Sub-City, Next to Edna Mall</p>
+                <p>Phone: +251 911 234 567</p>
+                <p>Email: contact@habeshaeatery.et</p>
+            </div>
+            <div class="footer-hours">
+                <h4>Opening Hours</h4>
+                <p>Monday – Saturday: 07:00 AM – 11:00 PM</p>
+                <p>Sunday: 08:00 AM – 10:00 PM</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Habesha Eatery. Built for CodeOps Full Stack Software Development.</p>
+        </div>
+    </footer>
+</body>
+</html>
