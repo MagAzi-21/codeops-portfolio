@@ -1,0 +1,124 @@
+:root {
+    --brand: hsl(212, 68%, 33%);
+    --brand-hover: hsl(212, 68%, 45%);
+    --accent: hsl(42, 69%, 49%);
+    --text-main: hsl(215, 28%, 17%);
+    --text-muted: hsl(215, 16%, 47%);
+    --bg-page: hsl(210, 40%, 98%);
+    --bg-card: hsl(0, 0%, 100%);
+    --border-color: hsl(214, 32%, 91%);
+    --space-xs: 6px;
+    --space-sm: 12px;
+    --space-md: 20px;
+    --space-lg: 32px;
+    --radius: 12px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.6;
+    color: var(--text-main);
+    background-color: var(--bg-page);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-md);
+}
+
+.card {
+    max-width: 380px;
+    width: 100%;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: var(--space-lg);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--brand);
+    background-color: hsla(212, 68%, 33%, 0.08);
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-bottom: var(--space-sm);
+}
+
+.business-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--text-main);
+    margin-bottom: var(--space-xs);
+}
+
+.tagline {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: var(--space-md);
+}
+
+.description {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-bottom: var(--space-md);
+}
+
+.meta-list {
+    list-style: none;
+    margin-bottom: var(--space-lg);
+    border-top: 1px solid var(--border-color);
+    padding-top: var(--space-md);
+}
+
+.meta-item {
+    position: relative;
+    padding-left: 18px;
+    font-size: 0.875rem;
+    color: var(--text-main);
+    margin-bottom: var(--space-xs);
+}
+
+/* Decorative pseudo-element bullet accent */
+.meta-item::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--brand);
+    font-weight: bold;
+}
+
+.btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    background-color: var(--brand);
+    color: #FFFFFF;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: var(--space-sm) var(--space-md);
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+}
+
+.btn:hover {
+    background-color: var(--brand-hover);
+}
+
+.btn:focus {
+    outline: 2px solid var(--brand);
+    outline-offset: 2px;
+}
