@@ -65,7 +65,7 @@ async function showCountry(name) {
 searchForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const query = countryInput.value.trim();
-    if (query) {
+    if (query) { 
         showCountry(query);
     }
 });

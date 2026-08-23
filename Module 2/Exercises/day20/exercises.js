@@ -74,5 +74,5 @@ async function runStateDemo() {
     } catch (err) {
         statusDisplay.textContent = `Error: ${err.message}`;
     }
-}
+} 
 runStateDemo();

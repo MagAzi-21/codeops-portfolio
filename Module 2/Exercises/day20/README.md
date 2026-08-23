@@ -8,4 +8,4 @@ Open `index.html` in a web browser with an internet connection.
 ## API Integration Details
 - REST Endpoint: `https://restcountries.com/v3.1/name/{name}`
 - Fallback Endpoint (Ex 1): `https://open.er-api.com/v6/latest/USD`
-- Implements `res.ok` status verification and handles loading, error, and resolved data states.
+- Implements `res.ok` status verification and handles loading, error, and resolved data states. 
