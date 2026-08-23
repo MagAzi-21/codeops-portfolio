@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 21 - Persistent Signup Form</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main class="container">
+        <header>
+            <h1>Ethiopian Service Registration</h1>
+            <p>Total Signups: <strong id="signup-count">0</strong></p>
+        </header>
+
+        <form id="signup-form" novalidate>
+            <div class="form-group">
+                <label for="full-name">Full Name</label>
+                <input type="text" id="full-name" name="fullName" placeholder="Abebe Bikila" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phone-number">Phone Number (09... or +2519...)</label>
+                <input type="tel" id="phone-number" name="phoneNumber" placeholder="0912345678" required>
+            </div>
+
+            <div id="error-message" class="error" aria-live="polite"></div>
+            <div id="success-message" class="success" aria-live="polite"></div>
+
+            <button type="submit">Sign Up</button>
+        </form>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
