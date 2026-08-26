@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Addis Eats - Food Ordering</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="app-header">
+        <h1>Addis Eats</h1>
+        <input type="text" id="search" placeholder="Search dishes..." aria-label="Search dishes">
+    </header>
+
+    <main class="app-main">
+        <section id="menu" aria-label="Menu" class="menu-container"></section>
+        
+        <aside id="cart" aria-label="Your order" class="cart-container">
+            <h2>Your Order</h2>
+            <ul id="cart-list" class="cart-items"></ul>
+            <div class="cart-summary">
+                <p>Total: <strong id="cart-total">0.00</strong> ETB</p>
+            </div>
+        </aside>
+    </main>
+
+    <footer class="app-footer">
+        <p>Bole, Addis Ababa &bull; TeleBirr Accepted</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
