@@ -1,4 +1,4 @@
-# Addis Eats - Capstone Project Core (Day 23)
+# Addis Eats - Capstone Project Core (Day 24)
 
 A single-page, data-driven food ordering application built with vanilla JavaScript, HTML5, and CSS Grid/Flexbox.
 
