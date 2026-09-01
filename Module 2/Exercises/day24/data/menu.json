@@ -1,0 +1,8 @@
+[
+  { "id": 1, "name": "Special Doro Wat", "category": "Main", "price": 320, "spicy": true },
+  { "id": 2, "name": "Shiro Tegabino", "category": "Vegetarian", "price": 180, "spicy": false },
+  { "id": 3, "name": "Special Derek Tibs", "category": "Main", "price": 360, "spicy": true },
+  { "id": 4, "name": "Beyaynetu Platter", "category": "Vegetarian", "price": 220, "spicy": false },
+  { "id": 5, "name": "Chechebsa (Kita Firfir)", "category": "Breakfast", "price": 160, "spicy": false },
+  { "id": 6, "name": "Jebena Buna Ceremony", "category": "Drink", "price": 80, "spicy": false }
+]
