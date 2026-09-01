@@ -2,6 +2,7 @@
 
 const STORAGE_KEY = 'addiseats_cart';
 const MENU_URL = 'data/menu.json';
+const PHONE_REGEX = /^(?:\+251|0)9\d{8}$/;
 
 const state = {
     dishes: [],
@@ -13,12 +14,18 @@ const menuEl = document.querySelector('#menu');
 const searchEl = document.querySelector('#search');
 const cartListEl = document.querySelector('#cart-list');
 const cartTotalEl = document.querySelector('#cart-total');
+const checkoutForm = document.querySelector('#checkout');
+const nameInput = document.querySelector('#name');
+const phoneInput = document.querySelector('#phone');
+const areaSelect = document.querySelector('#area');
+const formErrorEl = document.querySelector('#form-error');
+const confirmationEl = document.querySelector('#confirmation');
 
-function save() {
+function saveCart() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state.cart));
 }
 
-function load() {
+function loadCart() {
     try {
         const saved = localStorage.getItem(STORAGE_KEY);
         if (saved) {
@@ -30,11 +37,11 @@ function load() {
 }
 
 function cartTotal() {
-    return state.cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+    return state.cart.reduce((sum, item) => sum + ((item?.price ?? 0) * (item?.qty ?? 0)), 0);
 }
 
 function renderCart() {
-    if (state.cart.length === 0) {
+    if (!state.cart || state.cart.length === 0) {
         cartListEl.innerHTML = '<li class="empty-state">Your cart is empty</li>';
         cartTotalEl.textContent = '0.00';
         return;
@@ -99,6 +106,13 @@ async function loadMenu() {
     }
 }
 
+function validateCheckout(name, phone) {
+    if (!name.trim()) return 'Please enter your full name.';
+    if (!PHONE_REGEX.test(phone)) return 'Enter a valid Ethiopian phone number (e.g. 0912345678).';
+    if (state.cart.length === 0) return 'Your cart is empty.';
+    return '';
+}
+
 searchEl.addEventListener('input', (e) => {
     state.search = e.target.value;
     renderMenu();
@@ -119,7 +133,7 @@ menuEl.addEventListener('click', (e) => {
         state.cart.push({ ...dish, qty: 1 });
     }
 
-    save();
+    saveCart();
     renderCart();
 });
 
@@ -129,12 +143,47 @@ cartListEl.addEventListener('click', (e) => {
     const id = Number(cartItem.dataset.id);
 
     state.cart = state.cart.filter(item => item.id !== id);
-    save();
+    saveCart();
     renderCart();
 });
 
+checkoutForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    formErrorEl.textContent = '';
+    confirmationEl.style.display = 'none';
+
+    const name = nameInput.value.trim();
+    const phone = phoneInput.value.trim();
+    const area = areaSelect.value;
+
+    const error = validateCheckout(name, phone);
+    if (error) {
+        formErrorEl.textContent = error;
+        return;
+    }
+
+    const order = {
+        name,
+        phone,
+        area,
+        items: [...state.cart],
+        total: cartTotal(),
+        placedAt: new Date().toISOString()
+    };
+
+    console.log('Order Placed Successfully:', order);
+
+    state.cart = [];
+    saveCart();
+    render();
+    checkoutForm.reset();
+
+    confirmationEl.textContent = `Order placed successfully! Total: ${order.total.toFixed(2)} ETB to be delivered to ${area}.`;
+    confirmationEl.style.display = 'block';
+});
+
 async function init() {
-    load();
+    loadCart();
     await loadMenu();
 }
 
