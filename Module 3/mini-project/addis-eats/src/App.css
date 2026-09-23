@@ -1,14 +1,47 @@
 .container {
-  max-width: 550px;
+  max-width: 600px;
   margin: 30px auto;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   padding: 0 16px;
 }
 
 .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   border-bottom: 2px solid #eee;
-  padding-bottom: 12px;
-  margin-bottom: 20px;
+  padding-bottom: 16px;
+  margin-bottom: 24px;
+}
+
+.brand h1 {
+  margin: 0;
+  color: #1a202c;
+}
+
+.brand p {
+  margin: 4px 0 0 0;
+  color: #718096;
+}
+
+.cart-badge {
+  background: #ebf8ff;
+  border: 1px solid #bee3f8;
+  padding: 8px 12px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.badge-count {
+  font-weight: 700;
+  color: #2b6cb0;
+}
+
+.badge-total {
+  font-size: 0.85rem;
+  color: #4a5568;
 }
 
 .category-bar {
@@ -19,55 +52,52 @@
 }
 
 .chip {
-  background-color: #f1f3f5;
-  border: 1px solid #ced4da;
+  background-color: #f7fafc;
+  border: 1px solid #e2e8f0;
   padding: 6px 14px;
   border-radius: 20px;
   cursor: pointer;
   font-weight: 500;
-  transition: all 0.2s ease;
 }
 
 .chip.on {
-  background-color: #228be6;
+  background-color: #3182ce;
   color: white;
-  border-color: #228be6;
+  border-color: #3182ce;
 }
 
 .card {
-  border: 1px solid #e9ecef;
+  border: 1px solid #e2e8f0;
   border-radius: 8px;
   background-color: #ffffff;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   margin-bottom: 12px;
 }
 
 .dish {
-  padding: 14px;
+  padding: 14px 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.dish h3 {
+.dish-details h3 {
   margin: 0 0 4px 0;
-  font-size: 1.1rem;
 }
 
 .badge-spicy {
-  color: #fa5252;
-  font-size: 0.8rem;
+  color: #e53e3e;
+  font-size: 0.85rem;
 }
 
-.dish p {
+.dish-details p {
   margin: 0;
-  font-weight: bold;
-  color: #fd7e14;
+  font-weight: 700;
+  color: #dd6b20;
 }
 
 .add-btn {
-  background-color: #f8f9fa;
-  border: 1px solid #ced4da;
+  background-color: #edf2f7;
+  border: 1px solid #cbd5e0;
   padding: 6px 12px;
   border-radius: 6px;
   cursor: pointer;
@@ -75,39 +105,52 @@
 }
 
 .add-btn:hover {
-  background-color: #e9ecef;
+  background-color: #e2e8f0;
 }
 
-.empty-state {
+.status-msg {
   padding: 20px;
   text-align: center;
-  background-color: #f8f9fa;
+  color: #4a5568;
+}
+
+.status-msg.err {
+  color: #e53e3e;
+}
+
+.checkout-panel {
+  border: 1px solid #e2e8f0;
   border-radius: 8px;
-  color: #868e96;
+  padding: 20px;
+  background-color: #f7fafc;
+  margin-top: 30px;
 }
 
-.order-summary {
-  margin: 20px 0;
-  padding: 12px;
-  background-color: #e7f5ff;
-  border-radius: 8px;
-  text-align: right;
-}
-
-.order-summary h3 {
-  margin: 0;
-  color: #1971c2;
-}
-
-.order-form {
-  border: 1px solid #dee2e6;
-  border-radius: 8px;
-  padding: 18px;
-  background-color: #ffffff;
-}
-
-.order-form h3 {
+.checkout-panel h3 {
   margin-top: 0;
+}
+
+.cart-item-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px 0;
+}
+
+.cart-item-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  border-bottom: 1px dashed #cbd5e0;
+}
+
+.remove-btn {
+  background: none;
+  border: none;
+  color: #e53e3e;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: bold;
 }
 
 .field {
@@ -124,14 +167,14 @@
 
 .field input,
 .field select {
-  padding: 8px;
-  border: 1px solid #ced4da;
+  padding: 8px 10px;
+  border: 1px solid #cbd5e0;
   border-radius: 4px;
   font-size: 0.95rem;
 }
 
 .err {
-  color: #e03131;
+  color: #e53e3e;
   font-size: 0.8rem;
   margin: 4px 0 0 0;
 }
@@ -139,7 +182,7 @@
 .submit-btn {
   width: 100%;
   padding: 10px;
-  background-color: #2f9e44;
+  background-color: #38a169;
   color: white;
   border: none;
   border-radius: 6px;
@@ -149,36 +192,6 @@
 }
 
 .submit-btn:disabled {
-  background-color: #adb5bd;
+  background-color: #a0aec0;
   cursor: not-allowed;
-}
-
-.search-bar {
-  margin-bottom: 16px;
-}
-
-.search-input {
-  width: 100%;
-  padding: 10px 14px;
-  font-size: 0.95rem;
-  border: 1px solid #ced4da;
-  border-radius: 6px;
-  box-sizing: border-box;
-}
-
-.search-input:focus {
-  outline: none;
-  border-color: #228be6;
-  box-shadow: 0 0 0 3px rgba(34, 139, 230, 0.15);
-}
-
-.status-msg {
-  padding: 18px;
-  text-align: center;
-  font-weight: 500;
-  color: #495057;
-}
-
-.status-msg.err {
-  color: #e03131;
 }
