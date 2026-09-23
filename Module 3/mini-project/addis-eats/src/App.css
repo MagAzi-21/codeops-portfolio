@@ -152,3 +152,33 @@
   background-color: #adb5bd;
   cursor: not-allowed;
 }
+
+.search-bar {
+  margin-bottom: 16px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 0.95rem;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #228be6;
+  box-shadow: 0 0 0 3px rgba(34, 139, 230, 0.15);
+}
+
+.status-msg {
+  padding: 18px;
+  text-align: center;
+  font-weight: 500;
+  color: #495057;
+}
+
+.status-msg.err {
+  color: #e03131;
+}
