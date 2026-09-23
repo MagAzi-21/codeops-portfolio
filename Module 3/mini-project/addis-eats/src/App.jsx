@@ -1,22 +1,16 @@
 import Header from "./Header";
-import Dish from "./Dish";
+import Menu from "./Menu";
+import { menu } from "./data";
 import "./App.css";
 
-const menu = [
-  { id: 1, name: "Doro Wat", price: 240 },
-  { id: 2, name: "Shiro", price: 120 },
-  { id: 3, name: "Tibs", price: 280 },
-];
-
 function App() {
+  const activeCategory = "Main";
+
   return (
     <div className="container">
       <Header />
-      <main className="menu-list">
-        {menu.map((dish) => (
-          <Dish key={dish.id} name={dish.name} price={dish.price} />
-        ))}
-      </main>
+      <h2>Category: {activeCategory}</h2>
+      <Menu dishes={menu} category={activeCategory} />
     </div>
   );
 }
