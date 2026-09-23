@@ -5,7 +5,7 @@ import Home from "./Home";
 import Menu from "./Menu";
 import DishDetail from "./DishDetail";
 import Cart from "./Cart";
-import OrderForm from "./OrderForm";
+import Checkout from "./Checkout";
 import RequireAuth from "./RequireAuth";
 import Login from "./Login";
 import "./App.css";
@@ -34,7 +34,7 @@ function App() {
               path="checkout"
               element={
                 <RequireAuth>
-                  <OrderForm />
+                  <Checkout />
                 </RequireAuth>
               }
             />
