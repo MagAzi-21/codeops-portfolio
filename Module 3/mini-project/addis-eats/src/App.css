@@ -195,3 +195,108 @@
   background-color: #a0aec0;
   cursor: not-allowed;
 }
+
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.auth-box {
+  font-size: 0.85rem;
+}
+
+.auth-btn {
+  margin-left: 8px;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+
+.auth-link {
+  color: #3182ce;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.navbar {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 10px;
+}
+
+.nav-item {
+  text-decoration: none;
+  color: #4a5568;
+  font-weight: 500;
+  padding: 6px 10px;
+  border-radius: 4px;
+}
+
+.nav-item.active {
+  color: #3182ce;
+  font-weight: 700;
+  background-color: #ebf8ff;
+}
+
+.home-hero {
+  padding: 40px 0;
+  text-align: center;
+}
+
+.home-links {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.cta-btn {
+  background-color: #3182ce;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.cta-secondary {
+  background-color: #edf2f7;
+  color: #2d3748;
+  padding: 10px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+.dish-detail-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 24px;
+  background: white;
+}
+
+.detail-price {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #dd6b20;
+}
+
+.detail-actions {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.back-link {
+  color: #718096;
+  text-decoration: none;
+}
+
+.checkout-link {
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+}

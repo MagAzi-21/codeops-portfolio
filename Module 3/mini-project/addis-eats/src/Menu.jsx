@@ -1,39 +1,40 @@
-import { useState, useContext, useMemo, useCallback } from "react";
+import { useContext } from "react";
+import { useSearchParams, Link } from "react-router-dom";
 import CategoryBar from "./CategoryBar";
 import Card from "./Card";
 import Dish from "./Dish";
-import OrderForm from "./OrderForm";
 import { useFetch } from "./useFetch";
 import { CartContext } from "./CartProvider";
 
-const categories = ["All", "Main", "Vegan", "Dessert", "Drinks"];
+const categories = ["All", "Main", "Vegan", "Dessert"];
 
 function Menu() {
-  const [category, setCategory] = useState("All");
+  const [params, setParams] = useSearchParams();
+  const category = params.get("category") ?? "All";
+
   const { dispatch } = useContext(CartContext);
-  const { data, loading, error } = useFetch("/dishes.json");
+  const { data: dishes, loading, error } = useFetch("/dishes.json");
 
-  // Stable callback passed down to avoid re-rendering Dish children
-  const handleAdd = useCallback(
-    (dish) => {
-      dispatch({ type: "add", dish });
-    },
-    [dispatch]
-  );
+  function handleCategorySelect(newCategory) {
+    if (newCategory === "All") {
+      setParams({});
+    } else {
+      setParams({ category: newCategory });
+    }
+  }
 
-  // useMemo caches filtered dishes list across renders
-  const filteredDishes = useMemo(() => {
-    if (!data) return [];
-    if (category === "All") return data;
-    return data.filter((d) => d.category === category);
-  }, [data, category]);
+  const filteredDishes = dishes
+    ? category === "All"
+      ? dishes
+      : dishes.filter((d) => d.category === category)
+    : [];
 
   return (
     <div className="menu-container">
       <CategoryBar
         categories={categories}
         selected={category}
-        onSelect={setCategory}
+        onSelect={handleCategorySelect}
       />
 
       {loading && <p className="status-msg">Loading authentic dishes...</p>}
@@ -47,13 +48,19 @@ function Menu() {
         <div className="dish-list">
           {filteredDishes.map((dish) => (
             <Card key={dish.id}>
-              <Dish {...dish} onAdd={() => handleAdd(dish)} />
+              <Link to={`/menu/${dish.id}`} style={{ textDecoration: "none", color: "inherit", flex: 1 }}>
+                <Dish
+                  {...dish}
+                  onAdd={(e) => {
+                    e.preventDefault();
+                    dispatch({ type: "add", dish });
+                  }}
+                />
+              </Link>
             </Card>
           ))}
         </div>
       )}
-
-      <OrderForm />
     </div>
   );
 }
