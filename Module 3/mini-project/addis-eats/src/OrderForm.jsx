@@ -1,8 +1,12 @@
-import { useState, useContext } from "react";
-import { CartContext } from "./CartProvider";
+import { useState } from "react";
+import { useCartStore } from "./cartStore";
 
 function OrderForm() {
-  const { items, total, dispatch } = useContext(CartContext);
+  const items = useCartStore((s) => s.items);
+  const remove = useCartStore((s) => s.remove);
+  const clear = useCartStore((s) => s.clear);
+  const total = items.reduce((sum, item) => sum + item.price, 0);
+
   const [form, setForm] = useState({
     name: "",
     phone: "",
@@ -20,7 +24,7 @@ function OrderForm() {
     e.preventDefault();
     alert(`Order confirmed for ${form.name}!\nTotal: ${total} ETB\nDelivering to: ${form.area}`);
     setForm({ name: "", phone: "", area: "Bole" });
-    dispatch({ type: "clear" });
+    clear();
   }
 
   return (
@@ -35,7 +39,7 @@ function OrderForm() {
               <button
                 type="button"
                 className="remove-btn"
-                onClick={() => dispatch({ type: "remove", index })}
+                onClick={() => remove(index)}
               >
                 Remove
               </button>

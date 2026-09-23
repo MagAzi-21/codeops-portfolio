@@ -1,10 +1,9 @@
-import { useContext } from "react";
 import { NavLink, Outlet, Link } from "react-router-dom";
 import CartBadge from "./CartBadge";
-import { AuthContext } from "./AuthContext";
+import { useAuth } from "./useAuth";
 
 function Layout() {
-  const { user, logout } = useContext(AuthContext);
+  const { user, logout } = useAuth();
 
   return (
     <div className="container">
@@ -42,7 +41,7 @@ function Layout() {
       </main>
 
       <footer className="footer">
-        <p>© 2026 Addis Eats. Built with React Router v6.</p>
+        <p>© 2026 Addis Eats. Built with React Router & Zustand.</p>
       </footer>
     </div>
   );

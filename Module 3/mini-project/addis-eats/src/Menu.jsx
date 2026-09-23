@@ -1,10 +1,9 @@
-import { useContext } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import CategoryBar from "./CategoryBar";
 import Card from "./Card";
 import Dish from "./Dish";
 import { useFetch } from "./useFetch";
-import { CartContext } from "./CartProvider";
+import { useCartStore } from "./cartStore";
 
 const categories = ["All", "Main", "Vegan", "Dessert"];
 
@@ -12,7 +11,8 @@ function Menu() {
   const [params, setParams] = useSearchParams();
   const category = params.get("category") ?? "All";
 
-  const { dispatch } = useContext(CartContext);
+  // Select only the write action; does not re-render Menu on cart changes
+  const addItem = useCartStore((s) => s.addItem);
   const { data: dishes, loading, error } = useFetch("/dishes.json");
 
   function handleCategorySelect(newCategory) {
@@ -53,7 +53,7 @@ function Menu() {
                   {...dish}
                   onAdd={(e) => {
                     e.preventDefault();
-                    dispatch({ type: "add", dish });
+                    addItem(dish);
                   }}
                 />
               </Link>

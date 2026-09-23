@@ -1,9 +1,10 @@
-import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { CartContext } from "./CartProvider";
+import { useCartStore } from "./cartStore";
 
 function Cart() {
-  const { items, total, dispatch } = useContext(CartContext);
+  const items = useCartStore((s) => s.items);
+  const remove = useCartStore((s) => s.remove);
+  const total = items.reduce((sum, item) => sum + item.price, 0);
 
   if (items.length === 0) {
     return (
@@ -22,10 +23,7 @@ function Cart() {
         {items.map((item, index) => (
           <li key={index}>
             <span>{item.name} - {item.price} ETB</span>
-            <button
-              className="remove-btn"
-              onClick={() => dispatch({ type: "remove", index })}
-            >
+            <button className="remove-btn" onClick={() => remove(index)}>
               Remove
             </button>
           </li>

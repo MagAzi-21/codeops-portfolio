@@ -1,18 +1,18 @@
-import { useContext } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useFetch } from "./useFetch";
-import { CartContext } from "./CartProvider";
+import { useCartStore } from "./cartStore";
 
 function DishDetail() {
   const { id } = useParams();
-  const { dispatch } = useContext(CartContext);
+  const addItem = useCartStore((s) => s.addItem);
   const { data: dishes, loading, error } = useFetch("/dishes.json");
 
   if (loading) return <p className="status-msg">Loading dish details...</p>;
   if (error) return <p className="status-msg err">{error}</p>;
 
-  // Matches either by numerical ID or converted slug
-  const dish = dishes?.find((d) => String(d.id) === id || d.name.toLowerCase().replace(/\s+/g, "-") === id);
+  const dish = dishes?.find(
+    (d) => String(d.id) === id || d.name.toLowerCase().replace(/\s+/g, "-") === id
+  );
 
   if (!dish) {
     return (
@@ -32,7 +32,7 @@ function DishDetail() {
       <p className="detail-category">Category: <strong>{dish.category}</strong></p>
       <p className="detail-price">{dish.price} ETB</p>
       <div className="detail-actions">
-        <button className="submit-btn" onClick={() => dispatch({ type: "add", dish })}>
+        <button className="submit-btn" onClick={() => addItem(dish)}>
           Add to Cart
         </button>
         <Link to="/menu" className="back-link">← Back to Menu</Link>
