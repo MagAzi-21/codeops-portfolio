@@ -1,13 +1,14 @@
-# Addis Eats - Component Boundary Architecture (Day 38)
+# Addis Eats - Component Boundary Architecture (Day 40)
 
-| Component / File | Execution Side | Justification |
+| Component / File | Environment | Justification |
 | :--- | :--- | :--- |
-| `app/layout.js` | **Server** | Root shell containing `<html>` and `<body>`; passes `children` to `Providers` with 0 JS overhead. |
-| `components/Providers.jsx` | **Client** (`"use client"`) | React Context requires state (`useState`) to manage shopping cart items across route changes. |
-| `app/menu/page.js` | **Server** | Directly awaits data sources on the server without `useState`, `useEffect`, or loading states. |
-| `components/FilterShell.jsx`| **Client** (`"use client"`) | Requires click handlers and state to track category tabs; wraps server content via `children`. |
-| `components/DishList.jsx` | **Server** | Pure markup list renderer; sends 0 JS to the browser. |
-| `components/DishCard.jsx` | **Server** | Presentation card; ships plain HTML. |
-| `components/AddToCartButton.jsx` | **Client** (`"use client"`) | Smallest interactive leaf node binding `onClick` to update cart state. |
-| `app/menu/[id]/page.js` | **Server** | Async server component using `Promise.all` to fetch dish data and reviews concurrently. |
-| `app/menu/error.js` | **Client** (`"use client"`) | Next.js error boundaries require client state and event handlers to trigger `reset()`. |
+| `app/layout.js` | **Server** | Root shell rendering HTML tags and passing children into client context provider[cite: 9]. |
+| `components/Providers.jsx` | **Client** (`"use client"`) | React Context requires `useState` to persist cart items across client navigations[cite: 9]. |
+| `app/menu/page.js` | **Server** | Directly awaits data queries on the server without hooks or waterfalls[cite: 9, 10]. |
+| `components/FilterShell.jsx`| **Client** (`"use client"`) | Holds active category tab state; wraps server-rendered `DishList` via `children`[cite: 9, 10]. |
+| `components/CategoryBar.jsx`| **Client** (`"use client"`) | Interactive chip buttons triggering category selection[cite: 9]. |
+| `components/DishList.jsx` | **Server** | Pure structural layout sending zero JavaScript to the browser[cite: 9]. |
+| `components/DishCard.jsx` | **Server** | Pure presentation card; sends plain HTML[cite: 9]. |
+| `components/AddToCartButton.jsx` | **Client** (`"use client"`) | Smallest interactive leaf node binding `onClick` to update cart state[cite: 9, 10]. |
+| `app/menu/[id]/page.js` | **Server** | Prerendered statically with `generateStaticParams`[cite: 9, 10]. |
+| `app/menu/error.js` | **Client** (`"use client"`) | Error boundaries require client handlers to execute `reset()`[cite: 7]. |

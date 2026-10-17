@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Exercise 1 & 2: Ensure focus rings are never removed; styled prominently for keyboard navigation */
+:focus-visible {
+  outline: 2px solid #b45309;
+  outline-offset: 2px;
+}
+
+/* Exercise 4: Minimum 44x44px touch targets on mobile devices */
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+}
