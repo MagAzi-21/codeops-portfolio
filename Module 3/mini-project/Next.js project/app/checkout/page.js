@@ -2,7 +2,7 @@
 
 import { useActionState } from "react";
 import Link from "next/link";
-import { placeOrderAction, cancelOrderAction } from "@/app/actions";
+import { placeOrderAction, cancelOrder } from "@/app/actions";
 
 export default function CheckoutPage() {
   // useActionState provides the pending flag to disable the button and block double submits
@@ -29,7 +29,7 @@ export default function CheckoutPage() {
           </p>
           <button
             onClick={async () => {
-              const res = await cancelOrderAction(state.orderId);
+              const res = await cancelOrder(state.orderId);
               alert(res.message);
             }}
             className="touch-target px-4 py-2 bg-red-600 text-white rounded-lg text-xs font-semibold hover:bg-red-700 transition"
