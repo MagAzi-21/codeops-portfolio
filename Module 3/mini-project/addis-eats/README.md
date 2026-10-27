@@ -1,6 +1,6 @@
 # Addis Eats - State Management (Zustand & Context)
 
-Upgraded state architecture for IBT College CodeOps Module 3 Day 32.
+Upgraded state architecture for IBT College CodeOps Module 3.
 
 ## Why Each State Lives Where It Does
 

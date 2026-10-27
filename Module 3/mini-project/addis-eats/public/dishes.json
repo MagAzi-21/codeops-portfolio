@@ -1,7 +1,12 @@
 [
-  { "id": 1, "name": "Doro Wat", "price": 240, "category": "Main", "spicy": true },
-  { "id": 2, "name": "Shiro", "price": 120, "category": "Vegan", "spicy": false },
-  { "id": 3, "name": "Tibs", "price": 280, "category": "Main", "spicy": true },
-  { "id": 4, "name": "Beyaynetu", "price": 180, "category": "Vegan", "spicy": false },
-  { "id": 5, "name": "Baklava", "price": 90, "category": "Dessert", "spicy": false }
+  { "id": 1, "name": "Doro Wat", "amharic": "ዶሮ ወጥ", "price": 420, "category": "Main", "spicy": true, "image": "/images/doro-wat.jpg" },
+  { "id": 2, "name": "Shekla Tibs Special", "amharic": "የሸክላ ጥብስ", "price": 450, "category": "Main", "spicy": true, "image": "/images/shekla-tibs.jpg" },
+  { "id": 3, "name": "Shiro Tegabino", "amharic": "ሽሮ ተጋቢኖ", "price": 260, "category": "Vegan/Fasting", "spicy": false, "image": "/images/shiro-tegabino.jpg" },
+  { "id": 4, "name": "Royal Beyaynetu Platter", "amharic": "የጾም በየዓይነቱ", "price": 320, "category": "Vegan/Fasting", "spicy": false, "image": "/images/beyaynetu.jpg" },
+  { "id": 5, "name": "Special Gurage Kitfo", "amharic": "ልዩ የጉራጌ ክትፎ", "price": 480, "category": "Main", "spicy": true, "image": "/images/shekla-tibs.jpg" },
+  { "id": 6, "name": "Spicy Misir Wat", "amharic": "የምስር ወጥ", "price": 240, "category": "Vegan/Fasting", "spicy": true, "image": "/images/beyaynetu.jpg" },
+  { "id": 7, "name": "Braised Highland Gomen", "amharic": "የጎመን ወጥ", "price": 220, "category": "Vegan/Fasting", "spicy": false, "image": "/images/beyaynetu.jpg" },
+  { "id": 8, "name": "Traditional Buna Ceremony Set", "amharic": "የኢትዮጵያ ባህላዊ ቡና", "price": 95, "category": "Beverages", "spicy": false, "image": "/images/ethiopian-buna.jpg" },
+  { "id": 9, "name": "Bole Spiced Herbal Tea", "amharic": "የተቀመመ የሀበሻ ሻይ", "price": 85, "category": "Beverages", "spicy": false, "image": "/images/ethiopian-buna.jpg" },
+  { "id": 10, "name": "Artisanal Royal Tej", "amharic": "ማር ጠጅ", "price": 180, "category": "Beverages", "spicy": false, "image": "/images/ethiopian-buna.jpg" }
 ]

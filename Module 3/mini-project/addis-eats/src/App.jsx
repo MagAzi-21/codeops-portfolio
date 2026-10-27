@@ -1,91 +1,53 @@
-import React, { lazy, Suspense } from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import { AuthProvider } from "./AuthContext";
-import Layout from "./Layout";
-import Home from "./Home";
-import Menu from "./Menu";
-import DishDetail from "./DishDetail";
-import RequireAuth from "./RequireAuth";
-import Login from "./Login";
-import ErrorBoundary from "./ErrorBoundary";
-import "./App.css";
+import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
+import { CartProvider } from "./context/CartContext";
+import { useCart } from "./context/useCart";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Toast from "./components/Toast";
+import ErrorBoundary from "./components/ErrorBoundary";
 
-// Lazy-load routes not required on the initial landing/menu paint
-const Cart = lazy(() => import("./Cart"));
-const Checkout = lazy(() => import("./Checkout"));
+// Page Views
+import Home from "./pages/Home";
+import Menu from "./pages/Menu";
+import DishDetail from "./pages/DishDetail";
+import Cart from "./pages/Cart";
+import Checkout from "./pages/Checkout";
+import NotFound from "./pages/NotFound";
 
-function RouteSkeleton() {
+function Layout() {
+  const { toast, dismissToast } = useCart();
+
   return (
-    <div className="skeleton-container">
-      <div className="skeleton-bar title"></div>
-      <div className="skeleton-bar content"></div>
-      <div className="skeleton-bar content short"></div>
-    </div>
-  );
-}
-
-function NotFound() {
-  return (
-    <div className="status-msg">
-      <h2>404 - Page Not Found</h2>
-      <p>The page you are looking for does not exist.</p>
-      <Link to="/" className="back-link">Return to Home</Link>
+    <div className="app-shell">
+      <Header />
+      <main className="main-content" id="main-content">
+        <Outlet />
+      </main>
+      <Footer />
+      <Toast toast={toast} onDismiss={dismissToast} />
     </div>
   );
 }
 
 function App() {
   return (
-    <AuthProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            
-            {/* Menu isolated inside its own Error Boundary */}
-            <Route
-              path="menu"
-              element={
-                <ErrorBoundary errorMessage="Unable to load the menu catalog. Your cart and session remain safe.">
-                  <Menu />
-                </ErrorBoundary>
-              }
-            />
-
-            <Route path="menu/:id" element={<DishDetail />} />
-
-            {/* Cart lazy-loaded and boundary protected */}
-            <Route
-              path="cart"
-              element={
-                <ErrorBoundary errorMessage="Unable to display the cart right now.">
-                  <Suspense fallback={<RouteSkeleton />}>
-                    <Cart />
-                  </Suspense>
-                </ErrorBoundary>
-              }
-            />
-
-            {/* Checkout lazy-loaded and boundary protected */}
-            <Route
-              path="checkout"
-              element={
-                <RequireAuth>
-                  <ErrorBoundary errorMessage="Checkout encountered an error. Your cart items are preserved.">
-                    <Suspense fallback={<RouteSkeleton />}>
-                      <Checkout />
-                    </Suspense>
-                  </ErrorBoundary>
-                </RequireAuth>
-              }
-            />
-
-            <Route path="login" element={<Login />} />
-            <Route path="*" element={<NotFound />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </AuthProvider>
+    <ErrorBoundary errorMessage="An unexpected error occurred in Addis Eats application.">
+      <CartProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<Home />} />
+              <Route path="menu" element={<Menu />} />
+              <Route path="dish/:id" element={<DishDetail />} />
+              <Route path="menu/:id" element={<DishDetail />} />
+              <Route path="cart" element={<Cart />} />
+              <Route path="checkout" element={<Checkout />} />
+              <Route path="*" element={<NotFound />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </CartProvider>
+    </ErrorBoundary>
   );
 }
 
