@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Portfolio of Mike - Full-Stack Developer specializing in resilient web applications, distributed APIs, and performance engineering." />
+    <title>Mike | Software Engineer</title>
+
+    <!-- Preconnect to Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet" />
+
+    <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+    <!-- Background Grid Glow -->
+    <div class="bg-pattern" aria-hidden="true"></div>
+
+    <!-- Header Navigation -->
+    <header class="site-header">
+        <div class="container header-container">
+            <a href="#hero" class="brand-logo" aria-label="Mike Home">
+                <span class="logo-bracket">&lt;</span>Mike<span class="logo-accent">.dev</span><span
+                    class="logo-bracket">/&gt;</span>
+            </a>
+
+            <button id="nav-toggle" class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span class="hamburger"></span>
+            </button>
+
+            <nav id="primary-nav" class="primary-nav">
+                <ul>
+                    <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#capabilities" class="nav-link">Capabilities</a></li>
+                    <li><a href="#projects" class="nav-link">Architecture</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                    <li>
+                        <button id="theme-toggle" class="theme-btn" title="Toggle theme (Hotkey: T)"
+                            aria-label="Toggle light or dark theme">
+                            <span id="theme-icon">🌙</span>
+                            <span class="theme-hint" aria-hidden="true">T</span>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section id="hero" class="hero-section">
+            <div class="container">
+                <div class="hero-wrapper">
+                    <div class="status-badge" role="status">
+                        <span class="status-dot"></span> Available for Web Platforms & Engineering Roles
+                    </div>
+
+                    <h1 class="hero-title">
+                        Architecting <span class="text-gradient">resilient, fast</span> web applications.
+                    </h1>
+
+                    <p class="hero-summary">
+                        Software engineer building scalable systems with Next.js, modern JavaScript, and clean
+                        client/server architecture. Focused on strict edge boundaries, real-time sync, and WCAG
+                        accessibility.
+                    </p>
+
+                    <div class="hero-actions">
+                        <a href="#projects" class="btn btn-primary">
+                            View Production Systems
+                            <svg class="btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                        </a>
+                        <a href="#contact" class="btn btn-secondary">Get in Touch</a>
+                    </div>
+
+                    <!-- Quick Stat Counters -->
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">100%</span>
+                            <span class="stat-label">Accessible Semantics</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">&lt; 1.8s</span>
+                            <span class="stat-label">LCP Target Standard</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">0 KB</span>
+                            <span class="stat-label">Bloat Philosophy</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About & Engineering Principles -->
+        <section id="about" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-eyebrow">Engineering Philosophy</span>
+                    <h2 class="section-title">Clean code over complex hype.</h2>
+                </div>
+
+                <div class="about-grid">
+                    <div class="about-narrative">
+                        <p>
+                            I build production-grade web platforms that solve concrete problems. My engineering approach
+                            treats performance, privacy, and accessibility not as secondary polish, but as fundamental
+                            constraints from line one.
+                        </p>
+                        <p>
+                            By leveraging modern web standards, strict Server/Client boundary separation, and defensive
+                            security measures (such as 3-tier auth guards and open-redirect sanitization), I deliver
+                            software that feels immediate and stays dependable under load.
+                        </p>
+                    </div>
+
+                    <div class="principles-grid">
+                        <div class="principle-card">
+                            <div class="card-icon">⚡</div>
+                            <h3>Pragmatic Architecture</h3>
+                            <p>Choosing native browser APIs (Intl, FormData, EventSource) before adding heavy
+                                dependencies.</p>
+                        </div>
+                        <div class="principle-card">
+                            <div class="card-icon">🛡️</div>
+                            <h3>Defense in Depth</h3>
+                            <p>Guarding mutations at the database and server action level rather than trusting client
+                                state.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Capabilities -->
+        <section id="capabilities" class="section bg-alt">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-eyebrow">Skills & Toolbelt</span>
+                    <h2 class="section-title">Technical capabilities.</h2>
+                </div>
+
+                <div class="capabilities-grid">
+                    <div class="capability-category">
+                        <div class="cat-header">
+                            <span class="cat-number">01</span>
+                            <h3>Core & Frontend</h3>
+                        </div>
+                        <p class="cat-description">Accessible, standards-compliant user interfaces built for all
+                            viewports.</p>
+                        <div class="pill-group">
+                            <span class="tech-pill">Semantic HTML5</span>
+                            <span class="tech-pill">CSS3 Grid / Flexbox</span>
+                            <span class="tech-pill">Vanilla JS (ES6+)</span>
+                            <span class="tech-pill">React & Next.js</span>
+                            <span class="tech-pill">Tailwind CSS</span>
+                            <span class="tech-pill">WCAG AA Compliance</span>
+                        </div>
+                    </div>
+
+                    <div class="capability-category">
+                        <div class="cat-header">
+                            <span class="cat-number">02</span>
+                            <h3>Data & Performance</h3>
+                        </div>
+                        <p class="cat-description">Real-time telemetry, cache validation, and automated layout budgets.
+                        </p>
+                        <div class="pill-group">
+                            <span class="tech-pill">SWR / React Query</span>
+                            <span class="tech-pill">Server-Sent Events (SSE)</span>
+                            <span class="tech-pill">Recharts Data Visuals</span>
+                            <span class="tech-pill">Core Web Vitals (LCP/CLS)</span>
+                            <span class="tech-pill">React-Leaflet Maps</span>
+                            <span class="tech-pill">Dynamic OpenGraph / SEO</span>
+                        </div>
+                    </div>
+
+                    <div class="capability-category">
+                        <div class="cat-header">
+                            <span class="cat-number">03</span>
+                            <h3>Backend & Workflows</h3>
+                        </div>
+                        <p class="cat-description">Clean mutations, security authorization layers, and automated
+                            tooling.</p>
+                        <div class="pill-group">
+                            <span class="tech-pill">Server Actions</span>
+                            <span class="tech-pill">Edge Middleware Guards</span>
+                            <span class="tech-pill">Session Cookie Auth</span>
+                            <span class="tech-pill">Git / GitHub CLI</span>
+                            <span class="tech-pill">Vercel Production CI/CD</span>
+                            <span class="tech-pill">REST & JSON APIs</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects / Production Systems -->
+        <section id="projects" class="section">
+            <div class="container">
+                <div class="projects-top">
+                    <div class="section-header">
+                        <span class="section-eyebrow">Portfolio</span>
+                        <h2 class="section-title">Selected production work.</h2>
+                    </div>
+
+                    <div class="filter-pills" role="tablist" aria-label="Project filter">
+                        <button class="filter-tab active" data-filter="all" role="tab" aria-selected="true">All
+                            Work</button>
+                        <button class="filter-tab" data-filter="fullstack" role="tab"
+                            aria-selected="false">Full-Stack</button>
+                        <button class="filter-tab" data-filter="frontend" role="tab"
+                            aria-selected="false">Frontend</button>
+                    </div>
+                </div>
+
+                <div class="projects-display" id="projects-container">
+                    <!-- Project Card 1: Addis Eats -->
+                    <article class="showcase-card" data-category="fullstack">
+                        <div class="card-content">
+                            <div class="card-meta">
+                                <span class="badge badge-accent">Production System</span>
+                                <span class="meta-date">Next.js App Router</span>
+                            </div>
+                            <h3 class="card-title">Addis Eats Delivery Platform</h3>
+                            <p class="card-summary">
+                                An on-demand Ethiopian culinary platform supporting real-time tracking, edge
+                                authentication, and live status streams. Engineered with zero initial layout shift and
+                                under 1.8s LCP on throttled 4G connections.
+                            </p>
+
+                            <ul class="highlight-specs">
+                                <li>3-Tier Security: Edge middleware, session scopes, and in-action authorization
+                                    guards.</li>
+                                <li>Live Telemetry: SWR polling with server fallback seeds alongside SSE data streams.
+                                </li>
+                                <li>Mapping: Dynamic Leaflet engine with custom bounds fitting and text accessibility
+                                    fallbacks.</li>
+                            </ul>
+
+                            <div class="card-tech-footer">
+                                <div class="card-chips">
+                                    <span>Next.js</span>
+                                    <span>Tailwind</span>
+                                    <span>SWR</span>
+                                    <span>Leaflet</span>
+                                    <span>Recharts</span>
+                                </div>
+                                <div class="card-actions">
+                                    <a href="https://github.com/MagAzi-21" target="_blank" rel="noopener noreferrer"
+                                        class="link-btn">
+                                        GitHub Code
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <path d="M7 17l9.2-9.2M17 17V8H8" />
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Project Card 2: Healthcare Portal -->
+                    <article class="showcase-card" data-category="frontend">
+                        <div class="card-content">
+                            <div class="card-meta">
+                                <span class="badge">Web Platform</span>
+                                <span class="meta-date">HTML5 / Responsive CSS</span>
+                            </div>
+                            <h3 class="card-title">Dental Clinic Web Portal</h3>
+                            <p class="card-summary">
+                                A modern bilingual medical clinic website providing doctor directories, service
+                                specifications, and responsive patient booking flows. Designed with clean semantic
+                                landmarks and 100% accessible mobile navigation.
+                            </p>
+
+                            <ul class="highlight-specs">
+                                <li>Performance: Pure native CSS Grid architecture requiring zero render-blocking
+                                    JavaScript.</li>
+                                <li>Accessibility: Strict 44x44px touch ergonomics and high-contrast color verification.
+                                </li>
+                            </ul>
+
+                            <div class="card-tech-footer">
+                                <div class="card-chips">
+                                    <span>Semantic HTML5</span>
+                                    <span>CSS Custom Props</span>
+                                    <span>Vanilla JS</span>
+                                </div>
+                                <div class="card-actions">
+                                    <a href="https://github.com/MagAzi-21" target="_blank" rel="noopener noreferrer"
+                                        class="link-btn">
+                                        GitHub Code
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <path d="M7 17l9.2-9.2M17 17V8H8" />
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Project Card 3: Metrics Dashboard -->
+                    <article class="showcase-card" data-category="frontend">
+                        <div class="card-content">
+                            <div class="card-meta">
+                                <span class="badge">Data System</span>
+                                <span class="meta-date">Recharts & Data Tables</span>
+                            </div>
+                            <h3 class="card-title">Order Logistics & Revenue Dashboard</h3>
+                            <p class="card-summary">
+                                A restaurant management analytics interface delivering business metrics across delivery
+                                zones. Implements honest visualization standards with zero-based bar axes, ETB
+                                formatters, and dual semantic table views.
+                            </p>
+
+                            <ul class="highlight-specs">
+                                <li>Accessible Dual Representation: Paired HTML tables under every SVG chart for screen
+                                    readers.</li>
+                                <li>URL-Driven State: Query parameter sorting and pagination supporting direct
+                                    linkability.</li>
+                            </ul>
+
+                            <div class="card-tech-footer">
+                                <div class="card-chips">
+                                    <span>Recharts</span>
+                                    <span>Intl Formatters</span>
+                                    <span>Table Semantics</span>
+                                </div>
+                                <div class="card-actions">
+                                    <a href="https://github.com/MagAzi-21" target="_blank" rel="noopener noreferrer"
+                                        class="link-btn">
+                                        GitHub Code
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <path d="M7 17l9.2-9.2M17 17V8H8" />
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section bg-alt">
+            <div class="container max-w-narrow">
+                <div class="section-header text-center">
+                    <span class="section-eyebrow">Collaboration</span>
+                    <h2 class="section-title">Let's build something durable.</h2>
+                    <p class="section-subtext">Have a project, web platform, or engineering role? Reach out below.</p>
+                </div>
+
+                <form id="contact-form" class="pro-form" novalidate>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="name">Your Name <span class="required">*</span></label>
+                            <input type="text" id="name" name="name" required placeholder="e.g. Almaz Bekele"
+                                autocomplete="name" />
+                            <span class="field-error" id="name-error" aria-live="polite"></span>
+                        </div>
+
+                        <div class="form-field">
+                            <label for="email">Email Address <span class="required">*</span></label>
+                            <input type="email" id="email" name="email" required placeholder="almaz@example.com"
+                                autocomplete="email" />
+                            <span class="field-error" id="email-error" aria-live="polite"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="message">Project Scope or Message <span class="required">*</span></label>
+                        <textarea id="message" name="message" rows="5" required
+                            placeholder="Outline your timeline, goals, or platform requirements..."></textarea>
+                        <span class="field-error" id="message-error" aria-live="polite"></span>
+                    </div>
+
+                    <button type="submit" id="submit-btn" class="btn btn-primary btn-block">
+                        <span class="btn-text">Submit Message</span>
+                        <svg class="btn-spinner" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="3" style="display:none;">
+                            <circle cx="12" cy="12" r="10" stroke-opacity="0.25" />
+                            <path d="M12 2a10 10 0 0 1 10 10" />
+                        </svg>
+                    </button>
+
+                    <div id="form-feedback" class="status-alert" role="status" aria-live="polite"></div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Clean Footer -->
+    <footer class="site-footer">
+        <div class="container footer-layout">
+            <div class="footer-meta">
+                <p class="footer-copyright">
+                    © 2026 Mike. Built with semantic HTML5, modern CSS variables, and vanilla JavaScript.
+                </p>
+                <p class="footer-hint">Press <kbd>T</kbd> to toggle color mode</p>
+            </div>
+
+            <div class="footer-nav">
+                <a href="https://github.com/MagAzi-21" target="_blank" rel="noopener noreferrer"
+                    class="footer-link">GitHub</a>
+                <a href="#hero" class="footer-link">Back to Top ↑</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>
