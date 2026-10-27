@@ -26,7 +26,7 @@ function Navbar() {
       <div className="nav-container">
         <a href="#home" className="logo">
           <Code2 size={28} />
-          <span>ApexMKT</span>
+          <span>MIKIYAS</span>
         </a>
 
         <ul className="nav-links">
@@ -39,7 +39,7 @@ function Navbar() {
           ))}
         </ul>
 
-        <button 
+        <button
           className="mobile-btn"
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle menu"
