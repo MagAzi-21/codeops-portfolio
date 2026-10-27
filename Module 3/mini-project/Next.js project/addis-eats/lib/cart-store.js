@@ -19,6 +19,7 @@ let cachedRaw;
 let cachedSnapshot = { items: [], hydrated: true };
 
 function read() {
+  if (typeof window === "undefined") return SERVER_SNAPSHOT;
   let raw = null;
   try {
     raw = window.localStorage.getItem(KEY);
@@ -42,6 +43,7 @@ function read() {
 }
 
 function write(items) {
+  if (typeof window === "undefined") return;
   try {
     window.localStorage.setItem(KEY, JSON.stringify(items));
   } catch {
@@ -53,6 +55,11 @@ function write(items) {
 
 function subscribe(listener) {
   listeners.add(listener);
+  if (typeof window === "undefined") {
+    return () => {
+      listeners.delete(listener);
+    };
+  }
   const onStorage = (event) => event.key === KEY && listener();
   window.addEventListener("storage", onStorage);
   return () => {

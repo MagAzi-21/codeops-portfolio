@@ -23,7 +23,12 @@ import { card, field } from "./styles";
 export default function CheckoutForm({ customerName }) {
   const { lines, total, hydrated } = useCartLines();
   const [state, formAction] = useActionState(placeOrder, {});
-  const [idempotencyKey] = useState(() => crypto.randomUUID());
+  const [idempotencyKey] = useState(
+    () =>
+      typeof crypto !== "undefined" && typeof crypto.randomUUID === "function"
+        ? crypto.randomUUID()
+        : `idemp_${Date.now()}_${Math.random().toString(36).slice(2)}`
+  );
   const errors = state?.errors ?? {};
   const values = state?.values ?? {};
 
