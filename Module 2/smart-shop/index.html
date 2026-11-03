@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Smart Shop (Product Explorer) - Explore quality products and curate your personal wishlist in real time." />
+  <title>Smart Shop | Product Explorer</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css" />
+  
+  <!-- App Entrypoint -->
+  <script defer src="js/app.js"></script>
+</head>
+<body>
+  <!-- Header / Navigation Bar -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="#" class="brand-logo" aria-label="Smart Shop Home">
+        <span class="logo-icon">🛍️</span>
+        <div class="brand-text">
+          <span class="brand-title">Smart Shop</span>
+          <span class="brand-badge">Explorer</span>
+        </div>
+      </a>
+
+      <!-- Wishlist Drawer Trigger -->
+      <button 
+        id="wishlist-toggle-btn" 
+        class="btn-wishlist-toggle" 
+        aria-label="Open personal wishlist" 
+        aria-haspopup="dialog" 
+        aria-expanded="false"
+      >
+        <span class="heart-icon">❤️</span>
+        <span class="btn-text">Wishlist</span>
+        <span id="wishlist-count-badge" class="count-badge" aria-label="0 items in wishlist">0</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Application Body -->
+  <main class="app-main">
+    <div class="main-container">
+
+      <!-- Hero & Search Controls Bar -->
+      <section class="controls-section" aria-label="Search and product overview">
+        <div class="hero-banner">
+          <h1 class="hero-heading">Explore Curated Products</h1>
+          <p class="hero-subtitle">Discover top-rated items, search in real-time, and save your favorites.</p>
+        </div>
+
+        <div class="search-toolbar">
+          <div class="search-input-wrapper">
+            <span class="search-icon" aria-hidden="true">🔍</span>
+            <input 
+              type="text" 
+              id="search-input" 
+              class="search-input" 
+              placeholder="Search products by title (e.g. Essence, Phone, Perfume)..." 
+              aria-label="Search products by title" 
+              autocomplete="off" 
+              spellcheck="false"
+            />
+            <button 
+              id="clear-search-btn" 
+              class="btn-clear-search" 
+              type="button" 
+              aria-label="Clear search input" 
+              hidden
+            >
+              ✕
+            </button>
+          </div>
+
+          <div class="results-stats" id="results-stats" aria-live="polite">
+            <!-- Dynamically populated: e.g. "Showing 30 products" -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Feedback States (Loading Skeleton, Error Banner, Empty State) -->
+      <section id="feedback-container" class="feedback-container" aria-live="polite">
+        <!-- Rendered dynamically by JavaScript -->
+      </section>
+
+      <!-- Dynamic Product Grid -->
+      <section 
+        id="product-grid" 
+        class="product-grid" 
+        aria-label="Product listings"
+      >
+        <!-- Populated dynamically by app.js -->
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Slide-Over Wishlist Drawer & Backdrop -->
+  <div id="drawer-overlay" class="drawer-overlay" hidden></div>
+
+  <aside 
+    id="wishlist-drawer" 
+    class="wishlist-drawer" 
+    role="dialog" 
+    aria-modal="true" 
+    aria-labelledby="drawer-title" 
+    aria-hidden="true"
+  >
+    <div class="drawer-header">
+      <div class="drawer-title-group">
+        <h2 id="drawer-title" class="drawer-title">My Wishlist</h2>
+        <span id="drawer-count-pill" class="count-badge">0 items</span>
+      </div>
+      <button 
+        id="drawer-close-btn" 
+        class="btn-drawer-close" 
+        aria-label="Close wishlist drawer" 
+        type="button"
+      >
+        ✕
+      </button>
+    </div>
+
+    <!-- Wishlist Drawer Body -->
+    <div class="drawer-body">
+      <ul id="wishlist-items-list" class="wishlist-items-list" aria-label="Saved wishlist items">
+        <!-- Wishlist items or empty state injected dynamically -->
+      </ul>
+    </div>
+
+    <!-- Wishlist Drawer Footer -->
+    <div class="drawer-footer">
+      <div class="drawer-footer-summary">
+        <span>Total Saved:</span>
+        <strong id="drawer-total-count">0 items</strong>
+      </div>
+      <button 
+        id="clear-wishlist-btn" 
+        class="btn-clear-wishlist" 
+        type="button"
+      >
+        <span>🗑️</span> Clear Wishlist
+      </button>
+    </div>
+  </aside>
+
+  <!-- Notification Toast Container -->
+  <div id="toast-container" class="toast-container" aria-live="assertive" aria-atomic="true"></div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <p>Smart Shop &copy; 2026 &bull; Module 2 Final Exam &bull; Powered by <a href="https://dummyjson.com/products" target="_blank" rel="noopener noreferrer">DummyJSON API</a></p>
+    </div>
+  </footer>
+</body>
+</html>
+
