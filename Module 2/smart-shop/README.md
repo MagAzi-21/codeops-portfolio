@@ -7,7 +7,9 @@ Developed for the **Module 2 Final Exam**.
 ---
 
 ## 🚀 Live Demo & Deployment
-- **Deployment Platform**: Netlify / Vercel / GitHub Pages
+- **Live Production URL**: [https://smart-shop-red-one.vercel.app](https://smart-shop-red-one.vercel.app)
+- **Deployment Platform**: Vercel
+- **GitHub Repository**: [MagAzi-21/codeops-portfolio](https://github.com/MagAzi-21/codeops-portfolio)
 - **API Source**: [DummyJSON Products API](https://dummyjson.com/products)
 
 ---
